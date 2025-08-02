@@ -3722,7 +3722,7 @@ select.form-control option {
     <script src="dropdown.js"></script>
     <script>
     // Navigation logic for landing/surveys
-    function showSurvey(survey) {
+    async function showSurvey(survey) {
         document.getElementById('landingPage').classList.add('hidden');
         ['silnat','tcmats','lori','voices', 'silnat_new', 'silat_1.2', 'silat_1.3', 'silat_1.4'].forEach(s => {
             const section = document.getElementById(s + 'Section');
@@ -3749,6 +3749,7 @@ select.form-control option {
         }
 
         if (survey === 'silnat') {
+            await loadRegularSchoolsData();
             loadLocalGovernments();
         }
 
@@ -4097,6 +4098,36 @@ async function loadLagosStateDataFromCSV() {
     } catch (error) {
         console.error('Error loading or parsing school data from CSV:', error);
         // Fallback to existing data if CSV loading fails
+    }
+}
+
+async function loadRegularSchoolsData() {
+    try {
+        const response = await fetch('SCHOOL_LIST_AS_AT_JANUARY_2025 1,026.csv');
+        const csvText = await response.text();
+        const lines = csvText.split('\n').filter(line => line.trim() !== '');
+        const newLagosStateData = {};
+
+        // Skip header row, assuming the first row is the header
+        for (let i = 1; i < lines.length; i++) {
+            const parts = lines[i].split(',');
+            if (parts.length >= 2) {
+                const lga = parts[0].trim();
+                const school = parts[1].trim();
+
+                if (lga && school) {
+                    if (!newLagosStateData[lga]) {
+                        newLagosStateData[lga] = [];
+                    }
+                    newLagosStateData[lga].push(school);
+                }
+            }
+        }
+
+        lagosStateData = newLagosStateData;
+        console.log('Successfully loaded and parsed regular school data from CSV.');
+    } catch (error) {
+        console.error('Error loading or parsing regular school data from CSV:', error);
     }
 }
  // Load Local Government Areas into dropdown 
