@@ -2042,7 +2042,7 @@ select.form-control option {
                 </select>
             </div>
         </div>
-		<div class="form-row"> <div class="form-group"> <label for="localGov">Local Govt Educ Auth *</label> <select id="localGov" class="form-control" required="" onchange="loadSchools()"><option value="">Select LGEA</option></select> </div> <div class="form-group"> <label for="schoolName">Name of School/Institution *</label> <select id="schoolName" class="form-control" required=""><option value="">Select Primary School</option></select> </div> </div>
+		<div class="form-row"> <div class="form-group"> <label for="localGov">Local Govt Educ Auth *</label> <select id="localGov" class="form-control" required="" onchange="loadSchools()"></select> </div> <div class="form-group"> <label for="schoolName">Name of School/Institution *</label> <select id="schoolName" class="form-control" required=""></select> </div> </div>
 
                             <div class="form-row full">
                                 <div class="form-group">
@@ -3737,6 +3737,10 @@ select.form-control option {
         const targetSection = document.getElementById(sectionToShow + 'Section');
         if (targetSection) {
             targetSection.classList.remove('hidden');
+        }
+
+        if (survey === 'silnat') {
+            loadLocalGovernments();
         }
 
 
