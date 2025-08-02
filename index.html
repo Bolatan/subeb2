@@ -4126,6 +4126,74 @@ function loadSchools() {
     });
 }
 
+function setupVocationalCenterDropdowns() {
+    if (Object.keys(lagosStateData).length === 0) {
+        // Data not ready, try again in a moment.
+        setTimeout(setupVocationalCenterDropdowns, 200);
+        return;
+    }
+
+    const lgaDropdown = document.getElementById('silat13_lgea');
+    const schoolDropdown = document.getElementById('silat13_school_name');
+
+    const lgas = Object.keys(lagosStateData).sort();
+    lgaDropdown.innerHTML = '<option value="">Select LGEA</option>';
+    lgas.forEach(lga => {
+        const option = document.createElement('option');
+        option.value = lga;
+        option.textContent = lga;
+        lgaDropdown.appendChild(option);
+    });
+
+    lgaDropdown.onchange = function() {
+        const selectedLga = this.value;
+        const schools = lagosStateData[selectedLga] || [];
+
+        schoolDropdown.innerHTML = '<option value="">Select School/Institution</option>';
+
+        schools.forEach(school => {
+            const option = document.createElement('option');
+            option.value = school;
+            option.textContent = school;
+            schoolDropdown.appendChild(option);
+        });
+    };
+}
+
+function setupVocationalCenterDropdowns() {
+    if (Object.keys(lagosStateData).length === 0) {
+        // Data not ready, try again in a moment.
+        setTimeout(setupVocationalCenterDropdowns, 200);
+        return;
+    }
+
+    const lgaDropdown = document.getElementById('silat13_lgea');
+    const schoolDropdown = document.getElementById('silat13_school_name');
+
+    const lgas = Object.keys(lagosStateData).sort();
+    lgaDropdown.innerHTML = '<option value="">Select LGEA</option>';
+    lgas.forEach(lga => {
+        const option = document.createElement('option');
+        option.value = lga;
+        option.textContent = lga;
+        lgaDropdown.appendChild(option);
+    });
+
+    lgaDropdown.onchange = function() {
+        const selectedLga = this.value;
+        const schools = lagosStateData[selectedLga] || [];
+
+        schoolDropdown.innerHTML = '<option value="">Select School/Institution</option>';
+
+        schools.forEach(school => {
+            const option = document.createElement('option');
+            option.value = school;
+            option.textContent = school;
+            schoolDropdown.appendChild(option);
+        });
+    };
+}
+
 
 // --- CSV IMPORT: Replace LGAs and Schools in Form Dropdowns and Import Records ---
 function handleCSVUpload(event) {
