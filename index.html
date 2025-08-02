@@ -3712,6 +3712,7 @@ select.form-control option {
 }
 
     </style>
+    <script src="dropdown.js"></script>
     <script>
     // Navigation logic for landing/surveys
     function showSurvey(survey) {
@@ -3759,7 +3760,8 @@ select.form-control option {
         document.getElementById('mainApp').classList.add('hidden');
     }
     // On load, show login page only
-    window.onload = function() {
+    window.onload = async function() {
+		    await loadLagosStateDataFromCSV();
         document.getElementById('authScreen').classList.remove('hidden');
         document.getElementById('landingPage').classList.add('hidden');
         ['silnat','tcmats','lori','voices'].forEach(s => {
