@@ -722,17 +722,20 @@ select.form-control option {
 			
 			 <div class="form-row">
                 <div class="form-group">
-                    <label for="silnat_localGov">Local Govt Educ Auth *</label> <!-- This will be part of Section B -->
-                    <input type="text" id="silnat_localGov" name="silnat_b_local_gov_common" class="form-control" required="">
+                    <label for="silat_1_2_localGov">Local Govt Educ Auth *</label>
+                    <select id="silat_1_2_localGov" name="silat_1_2_localGov" class="form-control" required onchange="loadSpecialSchools()">
+                        <option value="">Select LGEA</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="silat_1_2_schoolName">Name of School/Institution *</label>
+                    <select id="silat_1_2_schoolName" name="silat_1_2_schoolName" class="form-control" required>
+                        <option value="">Select LGEA first</option>
+                    </select>
                 </div>
             </div>
 			
             <div class="form-row">
-
-                <div class="form-group">
-                    <label for="silat_1_2_school_name">Name of School/Institution</label>
-                    <input type="text" id="silat_1_2_school_name" name="silat_1_2_school_name" class="form-control">
-                </div>
                 <div class="form-group">
                     <label for="silat_1_2_address">Address:</label>
                     <textarea id="silat_1_2_address" name="silat_1_2_address" class="form-control" rows="2"></textarea>
@@ -4712,6 +4715,76 @@ function editRecord(id) {
 </footer>
 
 <script>
+// --- Data for Special Schools ---
+let specialSchoolsData = {};
+
+async function loadSpecialSchoolsDataFromCSV() {
+    try {
+        const response = await fetch('SPECIAL SCHOOLS AND INCLUSIVE UNITS1.csv');
+        const csvText = await response.text();
+        const lines = csvText.split('\n').filter(line => line.trim() !== '');
+        const newData = {};
+
+        // Start from row 4 (index 3) to skip BOM, empty lines and header
+        for (let i = 3; i < lines.length; i++) {
+            const parts = lines[i].split(',');
+            if (parts.length >= 3) {
+                // Column B (index 1) is School Name, Column C (index 2) is LGA
+                const school = parts[1].trim().replace(/"/g, '');
+                const lga = parts[2].trim().replace(/"/g, '');
+
+                if (lga && school) {
+                    if (!newData[lga]) {
+                        newData[lga] = [];
+                    }
+                    newData[lga].push(school);
+                }
+            }
+        }
+        specialSchoolsData = newData;
+        console.log('Successfully loaded special schools data:', specialSchoolsData);
+        loadSpecialLgas(); // Populate the dropdown after loading
+    } catch (error) {
+        console.error('Error loading or parsing special schools data from CSV:', error);
+    }
+}
+
+function loadSpecialLgas() {
+    const localGovDropdown = document.getElementById('silat_1_2_localGov');
+    if (!localGovDropdown) return;
+    const lgas = Object.keys(specialSchoolsData).sort();
+    localGovDropdown.innerHTML = '<option value="">Select Local Government</option>';
+    lgas.forEach(lga => {
+        const option = document.createElement('option');
+        option.value = lga;
+        option.textContent = lga;
+        localGovDropdown.appendChild(option);
+    });
+}
+
+function loadSpecialSchools() {
+    const localGov = document.getElementById('silat_1_2_localGov').value;
+    const schoolDropdown = document.getElementById('silat_1_2_schoolName');
+    if (!schoolDropdown) return;
+    schoolDropdown.innerHTML = '<option value="">Select School/Institution</option>';
+    if (!localGov) {
+        schoolDropdown.disabled = true;
+        schoolDropdown.innerHTML = '<option value="">Select LGEA first</option>';
+        return;
+    }
+    schoolDropdown.disabled = false;
+    const schools = specialSchoolsData[localGov] || [];
+    schools.forEach(school => {
+        const option = document.createElement('option');
+        option.value = school;
+        option.textContent = school;
+        schoolDropdown.appendChild(option);
+    });
+}
+
+// Load the special schools data when the page loads
+window.addEventListener('load', loadSpecialSchoolsDataFromCSV);
+
 // --- Survey Form Submission Logic for SILNAT, TCMATS, LORI, VOICES ---
 
 function updateTotal(maleId, femaleId, totalId) {
