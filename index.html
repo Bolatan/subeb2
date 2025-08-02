@@ -728,167 +728,114 @@ select.form-control option {
             </div>
 			
             <div class="form-row">
+
                 <div class="form-group">
-                    <label for="silnat_schoolName">Name of School/Institution *</label> <!-- This label was already updated -->
-                    <input type="text" id="silnat_schoolName" name="silnat_b_institution_name_common" class="form-control" required="">
-                </div>
-                <div class="form-group">
-                    <label for="silnat_schoolAddress_common">Address of School/Institution *</label>
-                    <textarea id="silnat_schoolAddress_common" name="silnat_b_institution_address_common" class="form-control" rows="3" required=""></textarea>
+                    <label for="silat_1_2_school_name">Name of School/Institution</label>
+                    <input type="text" id="silat_1_2_school_name" name="silat_1_2_school_name" class="form-control">
                 </div>
                 <div class="form-group">
-                    <label for="silnat_location_common">Location</label>
-                    <select id="silnat_location_common" name="silnat_b_location_common" class="form-control">
-                        <option value="">Select Location (Optional)</option>
-                        <option value="urban">Urban</option>
-                        <option value="rural">Rural</option>
-                        <option value="riverine">Riverine</option>
-                    </select>
-                </div>
-            </div>
-           
-			  <div class="form-row">
-                                <div class="form-group">
-                                    <label for="latitude">Latitude</label>
-                                    <input type="number" id="latitude" class="form-control" step="any" readonly="">
-                                    <button type="button" class="location-btn" onclick="getLocation(this)">📍 Get Current Location</button>
-                                </div>
-                                <div class="form-group">
-                                    <label for="longitude">Longitude</label>
-                                    <input type="number" id="longitude" class="form-control" step="any" readonly="">
-                                </div>
-                            </div>	
-				
-				    <div class="form-row">
-                <div class="form-group">
-                    <label for="silnat_assemblyDevotion_startTime">Assembly Devotion Start Time</label>
-                    <input type="time" id="silnat_assemblyDevotion_startTime" name="silnat_assemblyDevotion_startTime" class="form-control" step="900"> <!-- step="900" for 15-minute intervals -->
+                    <label for="silat_1_2_address">Address:</label>
+                    <textarea id="silat_1_2_address" name="silat_1_2_address" class="form-control" rows="2"></textarea>
                 </div>
                 <div class="form-group">
-                    <label for="silnat_assemblyDevotion_endTime">Assembly Devotion End Time</label>
-                    <input type="time" id="silnat_assemblyDevotion_endTime" name="silnat_assemblyDevotion_endTime" class="form-control" step="900"> <!-- step="900" for 15-minute intervals -->
+                    <label>Location:</label>
+                    <div>
+                        <label class="radio-inline"><input type="radio" name="silat_1_2_location" value="urban"> Urban</label>
+                        <label class="radio-inline"><input type="radio" name="silat_1_2_location" value="rural"> Rural</label>
+                        <label class="radio-inline"><input type="radio" name="silat_1_2_location" value="riverine"> Riverine</label>
+                    </div>
                 </div>
-            </div>
+                <div class="form-group">
+                    <label for="silat_1_2_lgea">LGEA:</label>
+                    <input type="text" id="silat_1_2_lgea" name="silat_1_2_lgea" class="form-control">
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="silat_1_2_assembly_start">Assembly Devotion: Time Start</label>
+                        <input type="time" id="silat_1_2_assembly_start" name="silat_1_2_assembly_start" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="silat_1_2_assembly_end">Assembly Devotion: Time End</label>
+                        <input type="time" id="silat_1_2_assembly_end" name="silat_1_2_assembly_end" class="form-control">
+                    </div>
+                </div>
 
-            <div class="form-group" style="margin-top: 20px;">
-                <label style="font-weight: bold; display: block; margin-bottom: 10px;">Number of Teachers in the School:</label>
-                <div class="form-row" style="grid-template-columns: 1fr 1fr 1fr; gap: 15px;">
-                    <div class="form-group">
-                        <label for="silnat_teachers_male">Male</label>
-                        <input type="number" id="silnat_teachers_male" name="silnat_teachers_male" class="form-control" min="0" placeholder="Male">
-                    </div>
-                    <div class="form-group">
-                        <label for="silnat_teachers_female">Female</label>
-                        <input type="number" id="silnat_teachers_female" name="silnat_teachers_female" class="form-control" min="0" placeholder="Female">
-                    </div>
-                    <div class="form-group">
-                        <label for="silnat_teachers_total">Total</label>
-                        <input type="number" id="silnat_teachers_total" name="silnat_teachers_total" class="form-control" min="0" placeholder="Total" readonly="" style="background-color: var(--lagos-blue) !important; opacity: 0.8 !important; color: var(--lagos-white) !important;">
+                <div class="form-group">
+                    <label>Number of Teachers in the School:</label>
+                    <div class="form-row" style="grid-template-columns: 1fr 1fr 1fr; gap: 15px;">
+                        <div class="form-group"><label for="silat_1_2_teachers_male">Male</label><input type="number" id="silat_1_2_teachers_male" name="silat_1_2_teachers_male" class="form-control" min="0" oninput="updateTotal('silat_1_2_teachers_male', 'silat_1_2_teachers_female', 'silat_1_2_teachers_total')"></div>
+                        <div class="form-group"><label for="silat_1_2_teachers_female">Female</label><input type="number" id="silat_1_2_teachers_female" name="silat_1_2_teachers_female" class="form-control" min="0" oninput="updateTotal('silat_1_2_teachers_male', 'silat_1_2_teachers_female', 'silat_1_2_teachers_total')"></div>
+                        <div class="form-group"><label for="silat_1_2_teachers_total">Total</label><input type="number" id="silat_1_2_teachers_total" name="silat_1_2_teachers_total" class="form-control" readonly=""></div>
                     </div>
                 </div>
-            </div>
 
-            <div class="form-group" style="margin-top: 20px;">
-                <label style="font-weight: bold; display: block; margin-bottom: 10px;">Number of Teachers with Specialization in Special Education in the School:</label>
-                <div class="form-row" style="grid-template-columns: 1fr 1fr 1fr; gap: 15px;">
-                    <div class="form-group">
-                        <label for="silnat_non_teaching_male">Male</label>
-                        <input type="number" id="silnat_non_teaching_male" name="silnat_non_teaching_male" class="form-control" min="0" placeholder="Male">
-                    </div>
-                    <div class="form-group">
-                        <label for="silnat_non_teaching_female">Female</label>
-                        <input type="number" id="silnat_non_teaching_female" name="silnat_non_teaching_female" class="form-control" min="0" placeholder="Female">
-                    </div>
-                    <div class="form-group">
-                        <label for="silnat_non_teaching_total">Total</label>
-                        <input type="number" id="silnat_non_teaching_total" name="silnat_non_teaching_total" class="form-control" min="0" placeholder="Total" readonly="" style="background-color: var(--lagos-blue) !important; opacity: 0.8 !important; color: var(--lagos-white) !important;">
+                <div class="form-group">
+                    <label>Number of Teachers with Specialization in Special Education in the School:</label>
+                    <div class="form-row" style="grid-template-columns: 1fr 1fr 1fr; gap: 15px;">
+                        <div class="form-group"><label for="silat_1_2_spec_ed_teachers_male">Male</label><input type="number" id="silat_1_2_spec_ed_teachers_male" name="silat_1_2_spec_ed_teachers_male" class="form-control" min="0" oninput="updateTotal('silat_1_2_spec_ed_teachers_male', 'silat_1_2_spec_ed_teachers_female', 'silat_1_2_spec_ed_teachers_total')"></div>
+                        <div class="form-group"><label for="silat_1_2_spec_ed_teachers_female">Female</label><input type="number" id="silat_1_2_spec_ed_teachers_female" name="silat_1_2_spec_ed_teachers_female" class="form-control" min="0" oninput="updateTotal('silat_1_2_spec_ed_teachers_male', 'silat_1_2_spec_ed_teachers_female', 'silat_1_2_spec_ed_teachers_total')"></div>
+                        <div class="form-group"><label for="silat_1_2_spec_ed_teachers_total">Total</label><input type="number" id="silat_1_2_spec_ed_teachers_total" name="silat_1_2_spec_ed_teachers_total" class="form-control" readonly=""></div>
                     </div>
                 </div>
-            </div>
 
-              <div class="form-group" style="margin-top: 20px;">
-                <label style="font-weight: bold; display: block; margin-bottom: 10px;">Number of Non-Teaching Staff in the School:</label>
-                <div class="form-row" style="grid-template-columns: 1fr 1fr 1fr; gap: 15px;">
-                    <div class="form-group">
-                        <label for="silnat_non_teaching_male">Male</label>
-                        <input type="number" id="silnat_non_teaching_male" name="silnat_non_teaching_male" class="form-control" min="0" placeholder="Male">
-                    </div>
-                    <div class="form-group">
-                        <label for="silnat_non_teaching_female">Female</label>
-                        <input type="number" id="silnat_non_teaching_female" name="silnat_non_teaching_female" class="form-control" min="0" placeholder="Female">
-                    </div>
-                    <div class="form-group">
-                        <label for="silnat_non_teaching_total">Total</label>
-                        <input type="number" id="silnat_non_teaching_total" name="silnat_non_teaching_total" class="form-control" min="0" placeholder="Total" readonly="" style="background-color: var(--lagos-blue) !important; opacity: 0.8 !important; color: var(--lagos-white) !important;">
+                <div class="form-group">
+                    <label>Number of Non-Teaching Staff in the School:</label>
+                    <div class="form-row" style="grid-template-columns: 1fr 1fr 1fr; gap: 15px;">
+                        <div class="form-group"><label for="silat_1_2_non_teaching_male">Male</label><input type="number" id="silat_1_2_non_teaching_male" name="silat_1_2_non_teaching_male" class="form-control" min="0" oninput="updateTotal('silat_1_2_non_teaching_male', 'silat_1_2_non_teaching_female', 'silat_1_2_non_teaching_total')"></div>
+                        <div class="form-group"><label for="silat_1_2_non_teaching_female">Female</label><input type="number" id="silat_1_2_non_teaching_female" name="silat_1_2_non_teaching_female" class="form-control" min="0" oninput="updateTotal('silat_1_2_non_teaching_male', 'silat_1_2_non_teaching_female', 'silat_1_2_non_teaching_total')"></div>
+                        <div class="form-group"><label for="silat_1_2_non_teaching_total">Total</label><input type="number" id="silat_1_2_non_teaching_total" name="silat_1_2_non_teaching_total" class="form-control" readonly=""></div>
                     </div>
                 </div>
-            </div>
-			
-			
-			 <div class="form-group" style="margin-top: 20px;">
-                <label style="font-weight: bold; display: block; margin-bottom: 10px;">Number of Learners in the School:</label>
-                <div class="form-row" style="grid-template-columns: 1fr 1fr 1fr; gap: 15px;">
-                    <div class="form-group">
-                        <label for="silnat_non_teaching_male">Male</label>
-                        <input type="number" id="silnat_non_teaching_male" name="silnat_non_teaching_male" class="form-control" min="0" placeholder="Male">
-                    </div>
-                    <div class="form-group">
-                        <label for="silnat_non_teaching_female">Female</label>
-                        <input type="number" id="silnat_non_teaching_female" name="silnat_non_teaching_female" class="form-control" min="0" placeholder="Female">
-                    </div>
-                    <div class="form-group">
-                        <label for="silnat_non_teaching_total">Total</label>
-                        <input type="number" id="silnat_non_teaching_total" name="silnat_non_teaching_total" class="form-control" min="0" placeholder="Total" readonly="" style="background-color: var(--lagos-blue) !important; opacity: 0.8 !important; color: var(--lagos-white) !important;">
-                    </div>
-                </div>
-            </div>
 
-            <div class="form-group" style="margin-top: 20px;">
-                <label style="font-weight: bold; display: block; margin-bottom: 10px;">Categories of Special Learners catered for in the School (List and indicate availability):</label>
-                <div class="form-row" style="grid-template-columns: 1fr 1fr 1fr; gap: 15px;">
-            <div class="form-group">
-                    
-                    <input type="number" name="Visual_Imapairment_1.2" placeholder="Visual Impairment" class="form-control">
-                    <input type="number" name="Hearing_Imapairment_1.2" placeholder="Hearing Impairment" class="form-control">
-                    <input type="number" name="Autism_Spectrum Disorder_1.2" placeholder="Autism Spectrum Disorder" class="form-control">
-                    <input type="number" name="Down_Syndrome_1.2" placeholder="Down Syndrome" class="form-control">
-                    <input type="number" name="Physically_Challenged_1.2" placeholder="Physically Challenged" class="form-control">
-					<input type="number" name="Cerebral_Palsy_1.2" placeholder="Cerebral Palsy" class="form-control">
-					<input type="number" name="Intellectual_Disapbility_1.2" placeholder="Intellectual Disability" class="form-control">
-					<input type="number" name="Usher_Syndrome_1.2" placeholder="Usher Syndrome" class="form-control">
-					<input type="number" name="Microcephalus_1.2" placeholder="Microcephalus" class="form-control">
-					<input type="number" name="Hydrocephalus_Spinal_bifida_1.2" placeholder="Hydrocephalus Spinal bifida" class="form-control">
-					<input type="number" name="Albinism_1.2" placeholder="Albinism" class="form-control">
+                <div class="form-group">
+                    <label>Number of Learners in the School:</label>
+                    <div class="form-row" style="grid-template-columns: 1fr 1fr 1fr; gap: 15px;">
+                        <div class="form-group"><label for="silat_1_2_learners_male">Male</label><input type="number" id="silat_1_2_learners_male" name="silat_1_2_learners_male" class="form-control" min="0" oninput="updateTotal('silat_1_2_learners_male', 'silat_1_2_learners_female', 'silat_1_2_learners_total')"></div>
+                        <div class="form-group"><label for="silat_1_2_learners_female">Female</label><input type="number" id="silat_1_2_learners_female" name="silat_1_2_learners_female" class="form-control" min="0" oninput="updateTotal('silat_1_2_learners_male', 'silat_1_2_learners_female', 'silat_1_2_learners_total')"></div>
+                        <div class="form-group"><label for="silat_1_2_learners_total">Total</label><input type="number" id="silat_1_2_learners_total" name="silat_1_2_learners_total" class="form-control" readonly=""></div>
+                    </div>
                 </div>
-			</div>	
-		
-				
-			<div class="form-group" style="margin-top: 20px;">
-                <label for="silnat_teacher_pupil_ratio">Teacher/Pupils Ratio:</label>
-                <div style="display: flex; align-items: center;">
-                    <input type="number" id="silnat_teacher_pupil_ratio" name="silnat_teacher_pupil_ratio" class="form-control" min="0" step="any" placeholder="Enter ratio value" style="flex-grow: 1;">
-                    <span style="margin-left: 8px; font-size: 1em; flex-shrink: 0;">%</span>
+
+                <div class="form-group">
+                    <label>Category of Special Learners catered for in the School (list and indicate availability)</label>
+                    <div>
+                        <label class="checkbox-inline"><input type="checkbox" name="silat_1_2_special_learners" value="visual_impairment"> Visual Impairment</label>
+                        <label class="checkbox-inline"><input type="checkbox" name="silat_1_2_special_learners" value="hearing_impairment"> Hearing Impairment</label>
+                        <label class="checkbox-inline"><input type="checkbox" name="silat_1_2_special_learners" value="asd"> Autism Spectrum Disorder (ASD)</label>
+                        <label class="checkbox-inline"><input type="checkbox" name="silat_1_2_special_learners" value="down_syndrome"> Down Syndrome</label>
+                        <label class="checkbox-inline"><input type="checkbox" name="silat_1_2_special_learners" value="physically_challenged"> Physically Challenged</label>
+                        <label class="checkbox-inline"><input type="checkbox" name="silat_1_2_special_learners" value="cerebral_palsy"> Cerebral Palsy</label>
+                        <label class="checkbox-inline"><input type="checkbox" name="silat_1_2_special_learners" value="intellectual_disability"> Intellectual Disability</label>
+                        <label class="checkbox-inline"><input type="checkbox" name="silat_1_2_special_learners" value="usher_syndrome"> Usher Syndrome</label>
+                        <label class="checkbox-inline"><input type="checkbox" name="silat_1_2_special_learners" value="microcephalus"> Microcephalus</label>
+                        <label class="checkbox-inline"><input type="checkbox" name="silat_1_2_special_learners" value="hydrocephalus_spinal_bifida"> Hydrocephalus/Spinal bifida</label>
+                        <label class="checkbox-inline"><input type="checkbox" name="silat_1_2_special_learners" value="albinism"> Albinism</label>
+                    </div>
                 </div>
-            </div>
 
-            <div class="form-group" style="margin-top: 20px;">
-                <label for="silnat_additional_staff_required">Number of Additional Teachers/Staff Required:</label>
-                <input type="number" id="silnat_additional_staff_required" name="silnat_additional_staff_required" class="form-control" min="0" placeholder="Enter number">
-            </div>
-
-            <div class="form-group" style="margin-top: 20px;">
-                <label for="silnat_multigrade_classes">Number of Classes operated as Multigrade:</label>
-                <input type="number" id="silnat_multigrade_classes" name="silnat_multigrade_classes" class="form-control" min="0" placeholder="Enter number">
-            </div>
-
-            <div class="form-group" style="margin-top: 20px;">
-                <label>Reason(s) for operating the classes as Multigrade:</label>
-                <div>
-                    <label class="checkbox-inline"><input type="checkbox" name="silnat_multigrade_reasons" value="inadequate_classrooms"> Inadequate Classrooms</label>
-                    <label class="checkbox-inline"><input type="checkbox" name="silnat_multigrade_reasons" value="inadequate_teaching_staff"> Inadequate Teaching Staff</label>
+                <div class="form-group">
+                    <label for="silat_1_2_teacher_pupil_ratio">Teacher/Pupils Ratio:</label>
+                    <input type="text" id="silat_1_2_teacher_pupil_ratio" name="silat_1_2_teacher_pupil_ratio" class="form-control">
                 </div>
-            </div>
-         </div>
+
+                <div class="form-group">
+                    <label for="silat_1_2_additional_staff_required">Number of Additional Teachers/Staff Required:</label>
+                    <input type="number" id="silat_1_2_additional_staff_required" name="silat_1_2_additional_staff_required" class="form-control" min="0">
+                </div>
+
+                <div class="form-group">
+                    <label for="silat_1_2_multigrade_classes">Number of Classes operated as Multigrade:</label>
+                    <input type="number" id="silat_1_2_multigrade_classes" name="silat_1_2_multigrade_classes" class="form-control" min="0">
+                </div>
+
+                <div class="form-group">
+                    <label>Reason(s) for operating the classes as Multigrade:</label>
+                    <div>
+                        <label class="checkbox-inline"><input type="checkbox" name="silat_1_2_multigrade_reasons" value="inadequate_classrooms"> Inadequate Classrooms</label>
+                        <label class="checkbox-inline"><input type="checkbox" name="silat_1_2_multigrade_reasons" value="inadequate_teaching_staff"> Inadequate Teaching Staff</label>
+                    </div>
+                </div>
+             </div>
 		 </div>							
              
 
@@ -1210,177 +1157,137 @@ select.form-control option {
 
             <h4 id="sectionBHeader_1.3" style="margin-bottom: 20px; cursor: pointer;" onclick="toggleSection(&#39;sectionBContent_1.3&#39;, &#39;sectionBHeader_1.3&#39;)">Section B: School/Institution Data ▶️</h4>
             <div id="sectionBContent_1.3" style="display: none;">
-               
-			 <div class="form-row full">
-            <div class="form-group">
-                <label for="silnat_a_institution_type">Institution Type *</label>
-                <select id="silnat_a_institution_type" name="silnat_a_institution_type" class="form-control" required="" onchange="handleSilnatInstitutionTypeChange()">
-                    <option value="">Select Institution Type</option>
-                    <option value="regular_school">Regular School</option>
-                    <option value="special_school">Special School</option>
-                    <option value="home_economics_centre">Home Economics Centre</option>
-                    <option value="mini_resource_centre">Mini Resource Centre</option>
-                    <option value="lgea_secretariat">LGEA Secretariat</option>
-                </select>
-            </div>
-        </div>
-			
-			 <div class="form-row">
+                <!-- 1. Name of School/Institution -->
                 <div class="form-group">
-                    <label for="silnat_localGov">Local Government *</label> <!-- This will be part of Section B -->
-                    <input type="text" id="silnat_localGov" name="silnat_b_local_gov_common" class="form-control" required="">
+                    <label for="silat13_school_name">1. Name of School/Institution</label>
+                    <input type="text" id="silat13_school_name" name="silat13_school_name" class="form-control">
                 </div>
-            </div>
-			
-            <div class="form-row">
+                <!-- 2. Address -->
                 <div class="form-group">
-                    <label for="silnat_schoolName">Name of School/Institution *</label> <!-- This label was already updated -->
-                    <input type="text" id="silnat_schoolName" name="silnat_b_institution_name_common" class="form-control" required="">
+                    <label for="silat13_address">2. Address</label>
+                    <textarea id="silat13_address" name="silat13_address" class="form-control" rows="3"></textarea>
                 </div>
+                <!-- 3. Location -->
                 <div class="form-group">
-                    <label for="silnat_schoolAddress_common">Address of School/Institution *</label>
-                    <textarea id="silnat_schoolAddress_common" name="silnat_b_institution_address_common" class="form-control" rows="3" required=""></textarea>
+                    <label>3. Location</label>
+                    <div>
+                        <label class="radio-inline"><input type="radio" name="silat13_location" value="urban"> Urban</label>
+                        <label class="radio-inline"><input type="radio" name="silat13_location" value="rural"> Rural</label>
+                        <label class="radio-inline"><input type="radio" name="silat13_location" value="riverine"> Riverine</label>
+                    </div>
                 </div>
+                <!-- 4. LGEA -->
                 <div class="form-group">
-                    <label for="silnat_location_common">Location</label>
-                    <select id="silnat_location_common" name="silnat_b_location_common" class="form-control">
-                        <option value="">Select Location (Optional)</option>
-                        <option value="urban">Urban</option>
-                        <option value="rural">Rural</option>
-                        <option value="riverine">Riverine</option>
-                    </select>
+                    <label for="silat13_lgea">4. LGEA</label>
+                    <input type="text" id="silat13_lgea" name="silat13_lgea" class="form-control">
                 </div>
-            </div>
-           
-			  <div class="form-row">
-                                <div class="form-group">
-                                    <label for="latitude">Latitude</label>
-                                    <input type="number" id="latitude" class="form-control" step="any" readonly="">
-                                    <button type="button" class="location-btn" onclick="getLocation(this)">📍 Get Current Location</button>
-                                </div>
-                                <div class="form-group">
-                                    <label for="longitude">Longitude</label>
-                                    <input type="number" id="longitude" class="form-control" step="any" readonly="">
-                                </div>
-                            </div>
-             <div class="form-group">
-                    <label for="silnat_location_common">Type of Vocation Taught at the Centre</label>
-                    <select id="vocation_taught" name="vocation_taught" class="form-control">
-                        <option value="">Select Vocation (Optional)</option>
-                        <option value="Handicraft">Handicraft</option>
-                        <option value="Home_Economic_Centre">Home Econs Centre</option>
-                        <option value="Computer_Centre">Computer Centre</option>
-						<option value="Mini_Resource_Centre">Mini Resource</option>
-                    </select>
-                </div>
-            
 
-            <div class="form-group" style="margin-top: 20px;">
-                <label style="font-weight: bold; display: block; margin-bottom: 10px;">Number of Instructors:</label>
-                <div class="form-row" style="grid-template-columns: 1fr 1fr 1fr; gap: 15px;">
-                    <div class="form-group">
-                        <label for="silnat_teachers_male">Male</label>
-                        <input type="number" id="silnat_teachers_male" name="silnat_teachers_male" class="form-control" min="0" placeholder="Male">
-                    </div>
-                    <div class="form-group">
-                        <label for="silnat_teachers_female">Female</label>
-                        <input type="number" id="silnat_teachers_female" name="silnat_teachers_female" class="form-control" min="0" placeholder="Female">
-                    </div>
-                    <div class="form-group">
-                        <label for="silnat_teachers_total">Total</label>
-                        <input type="number" id="silnat_teachers_total" name="silnat_teachers_total" class="form-control" min="0" placeholder="Total" readonly="" style="background-color: var(--lagos-blue) !important; opacity: 0.8 !important; color: var(--lagos-white) !important;">
-                    </div>
+                <!-- Types of Vocation Taught -->
+                <div class="form-group">
+                    <label for="silat13_vocation_type">Types of Vocation Taught at the centre (Please specify)</label>
+                    <input type="text" id="silat13_vocation_type" name="silat13_vocation_type" class="form-control">
                 </div>
-            </div>
 
-            <div class="form-group" style="margin-top: 20px;">
-                <label style="font-weight: bold; display: block; margin-bottom: 10px;">Number of Professionally Qualified Vocational Teachers:</label>
-                <div class="form-row" style="grid-template-columns: 1fr 1fr 1fr; gap: 15px;">
-                    <div class="form-group">
-                        <label for="silnat_non_teaching_male">Male</label>
-                        <input type="number" id="silnat_non_teaching_male" name="silnat_non_teaching_male" class="form-control" min="0" placeholder="Male">
-                    </div>
-                    <div class="form-group">
-                        <label for="silnat_non_teaching_female">Female</label>
-                        <input type="number" id="silnat_non_teaching_female" name="silnat_non_teaching_female" class="form-control" min="0" placeholder="Female">
-                    </div>
-                    <div class="form-group">
-                        <label for="silnat_non_teaching_total">Total</label>
-                        <input type="number" id="silnat_non_teaching_total" name="silnat_non_teaching_total" class="form-control" min="0" placeholder="Total" readonly="" style="background-color: var(--lagos-blue) !important; opacity: 0.8 !important; color: var(--lagos-white) !important;">
-                    </div>
-                </div>
-            </div>
-			
-			 <div class="form-group" style="margin-top: 20px;">
-                <label style="font-weight: bold; display: block; margin-bottom: 10px;">Number of Non-Teaching Staff in the School:</label>
-                <div class="form-row" style="grid-template-columns: 1fr 1fr 1fr; gap: 15px;">
-                    <div class="form-group">
-                        <label for="silnat_non_teaching_male">Male</label>
-                        <input type="number" id="silnat_non_teaching_male" name="silnat_non_teaching_male" class="form-control" min="0" placeholder="Male">
-                    </div>
-                    <div class="form-group">
-                        <label for="silnat_non_teaching_female">Female</label>
-                        <input type="number" id="silnat_non_teaching_female" name="silnat_non_teaching_female" class="form-control" min="0" placeholder="Female">
-                    </div>
-                    <div class="form-group">
-                        <label for="silnat_non_teaching_total">Total</label>
-                        <input type="number" id="silnat_non_teaching_total" name="silnat_non_teaching_total" class="form-control" min="0" placeholder="Total" readonly="" style="background-color: var(--lagos-blue) !important; opacity: 0.8 !important; color: var(--lagos-white) !important;">
+                <!-- Number of Instructors -->
+                <div class="form-group" style="margin-top: 20px;">
+                    <label style="font-weight: bold; display: block; margin-bottom: 10px;">Number of Instructors:</label>
+                    <div class="form-row" style="grid-template-columns: 1fr 1fr 1fr; gap: 15px;">
+                        <div class="form-group">
+                            <label for="silat13_instructors_male">Male</label>
+                            <input type="number" id="silat13_instructors_male" name="silat13_instructors_male" class="form-control" min="0" placeholder="Male">
+                        </div>
+                        <div class="form-group">
+                            <label for="silat13_instructors_female">Female</label>
+                            <input type="number" id="silat13_instructors_female" name="silat13_instructors_female" class="form-control" min="0" placeholder="Female">
+                        </div>
+                        <div class="form-group">
+                            <label for="silat13_instructors_total">Total</label>
+                            <input type="number" id="silat13_instructors_total" name="silat13_instructors_total" class="form-control" min="0" placeholder="Total" readonly="" style="background-color: var(--lagos-blue) !important; opacity: 0.8 !important; color: var(--lagos-white) !important;">
+                        </div>
                     </div>
                 </div>
-            </div>
-			
-			<div class="form-group" style="margin-top: 20px;">
-                <label style="font-weight: bold; display: block; margin-bottom: 10px;">Number of Schools your Centre is supporting:</label>
-                <div class="form-row" style="grid-template-columns: 1fr 1fr 1fr; gap: 15px;">
-                    <div class="form-group">
-                        <label for="nos_schools_ctr_support">No.of Schools</label>
-                        <input type="number" id="nos_schools_ctr_support" name="nos_schools_ctr_support" class="form-control" min="0" placeholder="Number of Schools">
-                    </div>
-                  </div>
-            </div>
-			
-			 <div class="form-group" style="margin-top: 20px;">
-                <label style="font-weight: bold; display: block; margin-bottom: 10px;">Average Distance of farthest School among the Schools under your support to the Centre in Kilometre:</label>
-                <div class="form-row" style="grid-template-columns: 1fr 1fr 1fr; gap: 15px;">
-                    <div class="form-group">
-                        <label for="average_farthest_school">Kilometers</label>
-                        <input type="number" id="average_farthest_school" name="average_farthest_school" class="form-control" min="0" placeholder="Average Farthest School">
-                    </div>
-                  </div>
-            </div>
 
-            <div class="form-group" style="margin-top: 20px;">
-                <label style="font-weight: bold; display: block; margin-bottom: 10px;">Average Number of Learners Attending training at the Centre:</label>
-                <div class="form-row" style="grid-template-columns: 1fr 1fr 1fr; gap: 15px;">
-                    <div class="form-group">
-                        <label for="silnat_pupils_male">Male</label>
-                        <input type="number" id="silnat_pupils_male" name="silnat_pupils_male" class="form-control" min="0" placeholder="Male">
-                    </div>
-                    <div class="form-group">
-                        <label for="silnat_pupils_female">Female</label>
-                        <input type="number" id="silnat_pupils_female" name="silnat_pupils_female" class="form-control" min="0" placeholder="Female">
-                    </div>
-                    <div class="form-group">
-                        <label for="silnat_pupils_total">Total</label>
-                        <input type="number" id="silnat_pupils_total" name="silnat_pupils_total" class="form-control" min="0" placeholder="Total" readonly="" style="background-color: var(--lagos-blue) !important; opacity: 0.8 !important; color: var(--lagos-white) !important;">
+                <!-- Number of Professionally Qualified Vocational Teachers -->
+                <div class="form-group" style="margin-top: 20px;">
+                    <label style="font-weight: bold; display: block; margin-bottom: 10px;">Number of Professionally Qualified Vocational Teachers:</label>
+                    <div class="form-row" style="grid-template-columns: 1fr 1fr 1fr; gap: 15px;">
+                        <div class="form-group">
+                            <label for="silat13_qualified_teachers_male">Male</label>
+                            <input type="number" id="silat13_qualified_teachers_male" name="silat13_qualified_teachers_male" class="form-control" min="0" placeholder="Male">
+                        </div>
+                        <div class="form-group">
+                            <label for="silat13_qualified_teachers_female">Female</label>
+                            <input type="number" id="silat13_qualified_teachers_female" name="silat13_qualified_teachers_female" class="form-control" min="0" placeholder="Female">
+                        </div>
+                        <div class="form-group">
+                            <label for="silat13_qualified_teachers_total">Total</label>
+                            <input type="number" id="silat13_qualified_teachers_total" name="silat13_qualified_teachers_total" class="form-control" min="0" placeholder="Total" readonly="" style="background-color: var(--lagos-blue) !important; opacity: 0.8 !important; color: var(--lagos-white) !important;">
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="form-group" style="margin-top: 20px;">
-                <label for="silnat_teacher_pupil_ratio">Instructor/Pupils Ratio:</label>
-                <div style="display: flex; align-items: center;">
-                    <input type="number" id="silnat_instructor_pupil_ratio" name="silnat_instructor_pupil_ratio" class="form-control" min="0" step="any" placeholder="Enter ratio value" style="flex-grow: 1;">
-                    <span style="margin-left: 8px; font-size: 1em; flex-shrink: 0;">%</span>
+                <!-- Number of Non-Teaching Staff -->
+                <div class="form-group" style="margin-top: 20px;">
+                    <label style="font-weight: bold; display: block; margin-bottom: 10px;">Number of Non-Teaching Staff in the School:</label>
+                    <div class="form-row" style="grid-template-columns: 1fr 1fr 1fr; gap: 15px;">
+                        <div class="form-group">
+                            <label for="silat13_non_teaching_male">Male</label>
+                            <input type="number" id="silat13_non_teaching_male" name="silat13_non_teaching_male" class="form-control" min="0" placeholder="Male">
+                        </div>
+                        <div class="form-group">
+                            <label for="silat13_non_teaching_female">Female</label>
+                            <input type="number" id="silat13_non_teaching_female" name="silat13_non_teaching_female" class="form-control" min="0" placeholder="Female">
+                        </div>
+                        <div class="form-group">
+                            <label for="silat13_non_teaching_total">Total</label>
+                            <input type="number" id="silat13_non_teaching_total" name="silat13_non_teaching_total" class="form-control" min="0" placeholder="Total" readonly="" style="background-color: var(--lagos-blue) !important; opacity: 0.8 !important; color: var(--lagos-white) !important;">
+                        </div>
+                    </div>
                 </div>
-            </div>
 
-            <div class="form-group" style="margin-top: 20px;">
-                <label for="silnat_additional_staff_required">Number of Additional Instructors/Staff Required:</label>
-                <input type="number" id="silnat_additional_staff_required" name="silnat_additional_staff_required" class="form-control" min="0" placeholder="Enter number">
-            </div>
-			
-         </div>
+                <!-- Number of Schools your Centre is supporting -->
+                <div class="form-group">
+                    <label for="silat13_schools_supported">Number of Schools your Centre is supporting</label>
+                    <input type="number" id="silat13_schools_supported" name="silat13_schools_supported" class="form-control" min="0">
+                </div>
+
+                <!-- Average Distance -->
+                <div class="form-group">
+                    <label for="silat13_avg_distance">Average Distance of farthest School among the Schools under your support to the Centre in Kilometre</label>
+                    <input type="number" id="silat13_avg_distance" name="silat13_avg_distance" class="form-control" min="0">
+                </div>
+
+                <!-- Average Number of Learners -->
+                <div class="form-group" style="margin-top: 20px;">
+                    <label style="font-weight: bold; display: block; margin-bottom: 10px;">Average Number of Learners Attending training at the Centre:</label>
+                    <div class="form-row" style="grid-template-columns: 1fr 1fr 1fr; gap: 15px;">
+                        <div class="form-group">
+                            <label for="silat13_learners_male">Male</label>
+                            <input type="number" id="silat13_learners_male" name="silat13_learners_male" class="form-control" min="0" placeholder="Male">
+                        </div>
+                        <div class="form-group">
+                            <label for="silat13_learners_female">Female</label>
+                            <input type="number" id="silat13_learners_female" name="silat13_learners_female" class="form-control" min="0" placeholder="Female">
+                        </div>
+                        <div class="form-group">
+                            <label for="silat13_learners_total">Total</label>
+                            <input type="number" id="silat13_learners_total" name="silat13_learners_total" class="form-control" min="0" placeholder="Total" readonly="" style="background-color: var(--lagos-blue) !important; opacity: 0.8 !important; color: var(--lagos-white) !important;">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Instructor/Pupils Ratio -->
+                <div class="form-group">
+                    <label for="silat13_instructor_pupil_ratio">Instructor/Pupils Ratio:</label>
+                    <input type="text" id="silat13_instructor_pupil_ratio" name="silat13_instructor_pupil_ratio" class="form-control" placeholder="e.g., 1:30">
+                </div>
+
+                <!-- Number of Additional Instructors/Staff Required -->
+                <div class="form-group">
+                    <label for="silat13_additional_staff">Number of Additional Instructors/Staff Required:</label>
+                    <input type="number" id="silat13_additional_staff" name="silat13_additional_staff" class="form-control" min="0">
+                </div>
+             </div>
 		 
 		 
             <!-- End of Section B placeholder -->
@@ -4775,6 +4682,19 @@ function editRecord(id) {
 <script>
 // --- Survey Form Submission Logic for SILNAT, TCMATS, LORI, VOICES ---
 
+function updateTotal(maleId, femaleId, totalId) {
+    const maleInput = document.getElementById(maleId);
+    const femaleInput = document.getElementById(femaleId);
+    const totalInput = document.getElementById(totalId);
+
+    if (maleInput && femaleInput && totalInput) {
+        const maleCount = parseInt(maleInput.value, 10) || 0;
+        const femaleCount = parseInt(femaleInput.value, 10) || 0;
+
+        totalInput.value = maleCount + femaleCount;
+    }
+}
+
 function toggleSection(sectionId, headerId) {
     const section = document.getElementById(sectionId);
     const header = document.getElementById(headerId);
@@ -5015,6 +4935,12 @@ document.addEventListener('DOMContentLoaded', () => {
     setupTotalCalculation('staff_male_1.4', 'staff_female_1.4', 'staff_total_1.4');
     setupTotalCalculation('teachers_male_1.4', 'teachers_female_1.4', 'teachers_total_1.4');
     setupTotalCalculation('non_teaching_male_1.4', 'non_teaching_female_1.4', 'non_teaching_total_1.4');
+
+    // SILAT 1.3 totals
+    setupTotalCalculation('silat13_instructors_male', 'silat13_instructors_female', 'silat13_instructors_total');
+    setupTotalCalculation('silat13_qualified_teachers_male', 'silat13_qualified_teachers_female', 'silat13_qualified_teachers_total');
+    setupTotalCalculation('silat13_non_teaching_male', 'silat13_non_teaching_female', 'silat13_non_teaching_total');
+    setupTotalCalculation('silat13_learners_male', 'silat13_learners_female', 'silat13_learners_total');
 });
 
 // Function to update total teachers for SILNAT form
