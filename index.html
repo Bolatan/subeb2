@@ -4069,7 +4069,7 @@ function toggleMobileSidebar() {
 // --- Function to fetch and parse CSV to build lagosStateData ---
 async function loadLagosStateDataFromCSV() {
     try {
-        const response = await fetch('SCHOOL_LIST_AS_AT_JANUARY_2025 1,026.csv');
+        const response = await fetch('LIST OF VOCATIONAL CENTRES.csv');
         const csvText = await response.text();
         const lines = csvText.split('\n').filter(line => line.trim() !== '');
         const newLagosStateData = {};
