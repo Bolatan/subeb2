@@ -705,6 +705,30 @@ select.form-control option {
 
             <h4 id="sectionBHeader_1.2" style="margin-bottom: 20px; cursor: pointer;" onclick="toggleSection(&#39;sectionBContent_1.2&#39;, &#39;sectionBHeader_1.2&#39;)">Section B: School/Institution Data ▶️</h4>
             <div id="sectionBContent_1.2" style="display: none;">
+                
+			<div class="form-row full">
+            <div class="form-group">
+                <label for="silnat_a_institution_type">Institution Type *</label>
+                <select id="silnat_a_institution_type" name="silnat_a_institution_type" class="form-control" required="" onchange="handleSilnatInstitutionTypeChange()">
+                    <option value="">Select Institution Type</option>
+                    <option value="regular_school">Regular School</option>
+                    <option value="special_school">Special School</option>
+                    <option value="home_economics_centre">Home Economics Centre</option>
+                    <option value="mini_resource_centre">Mini Resource Centre</option>
+                    <option value="lgea_secretariat">LGEA Secretariat</option>
+                </select>
+            </div>
+        </div>
+			
+			 <div class="form-row">
+                <div class="form-group">
+                    <label for="silnat_localGov">Local Govt Educ Auth *</label> <!-- This will be part of Section B -->
+                    <input type="text" id="silnat_localGov" name="silnat_b_local_gov_common" class="form-control" required="">
+                </div>
+            </div>
+			
+            <div class="form-row">
+
                 <div class="form-group">
                     <label for="silat_1_2_school_name">Name of School/Institution</label>
                     <input type="text" id="silat_1_2_school_name" name="silat_1_2_school_name" class="form-control">
