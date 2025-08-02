@@ -1160,33 +1160,33 @@ select.form-control option {
 
             <h4 id="sectionBHeader_1.3" style="margin-bottom: 20px; cursor: pointer;" onclick="toggleSection(&#39;sectionBContent_1.3&#39;, &#39;sectionBHeader_1.3&#39;)">Section B: School/Institution Data ▶️</h4>
             <div id="sectionBContent_1.3" style="display: none;">
-                <!-- 1. Name of School/Institution -->
+                <!-- 1. LGEA -->
                 <div class="form-group">
-                    <label for="silat13_school_name">1. Name of School/Institution</label>
+                    <label for="silat13_lgea">1. Local Govt Educ Auth *</label>
+                    <select id="silat13_lgea" name="silat13_lgea" class="form-control" required="">
+                        <option value="">Select LGEA</option>
+                    </select>
+                </div>
+                <!-- 2. Name of School/Institution -->
+                <div class="form-group">
+                    <label for="silat13_school_name">2. Name of School/Institution</label>
                     <select id="silat13_school_name" name="silat13_school_name" class="form-control">
                         <option value="">Select School/Institution</option>
                     </select>
                 </div>
-                <!-- 2. Address -->
+                <!-- 3. Address -->
                 <div class="form-group">
-                    <label for="silat13_address">2. Address</label>
+                    <label for="silat13_address">3. Address</label>
                     <textarea id="silat13_address" name="silat13_address" class="form-control" rows="3"></textarea>
                 </div>
-                <!-- 3. Location -->
+                <!-- 4. Location -->
                 <div class="form-group">
-                    <label>3. Location</label>
+                    <label>4. Location</label>
                     <div>
                         <label class="radio-inline"><input type="radio" name="silat13_location" value="urban"> Urban</label>
                         <label class="radio-inline"><input type="radio" name="silat13_location" value="rural"> Rural</label>
                         <label class="radio-inline"><input type="radio" name="silat13_location" value="riverine"> Riverine</label>
                     </div>
-                </div>
-                <!-- 4. LGEA -->
-                <div class="form-group">
-                    <label for="silat13_lgea">Local Govt Educ Auth *</label>
-                    <select id="silat13_lgea" name="silat13_lgea" class="form-control" required="">
-                        <option value="">Select LGEA</option>
-                    </select>
                 </div>
 
                 <!-- Types of Vocation Taught -->
