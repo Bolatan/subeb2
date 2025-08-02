@@ -2042,7 +2042,7 @@ select.form-control option {
                 </select>
             </div>
         </div>
-		<div class="form-row"> <div class="form-group"> <label for="localGov">Local Govt Educ Auth *</label> <select id="localGov" class="form-control" required="" onchange="loadSchools()"><option value="">Select LGEA</option><option value="Agege">Agege</option><option value="Ajeromi-Ifelodun">Ajeromi-Ifelodun</option><option value="Alimosho">Alimosho</option><option value="Amuwo-Odofin">Amuwo-Odofin</option><option value="Apapa">Apapa</option><option value="Badagry">Badagry</option><option value="Epe">Epe</option><option value="Eti-Osa">Eti-Osa</option><option value="Ibeju-Lekki">Ibeju-Lekki</option><option value="Ifako-Ijaiye">Ifako-Ijaiye</option><option value="Ikeja">Ikeja</option><option value="Ikorodu">Ikorodu</option><option value="Kosofe">Kosofe</option><option value="Lagos Island">Lagos Island</option><option value="Lagos Mainland">Lagos Mainland</option><option value="Mushin">Mushin</option><option value="Ojo">Ojo</option><option value="Oshodi-Isolo">Oshodi-Isolo</option><option value="Shomolu">Shomolu</option><option value="Surulere">Surulere</option></select> </div> <div class="form-group"> <label for="schoolName">Name of School/Institution *</label> <select id="schoolName" class="form-control" required=""><option value="">Select Primary School</option><option value="Agege Primary School I">Agege Primary School I</option><option value="Agege Primary School II">Agege Primary School II</option><option value="Oko-Oba Primary School">Oko-Oba Primary School</option><option value="Mulero Primary School">Mulero Primary School</option><option value="Pen Cinema Primary School">Pen Cinema Primary School</option><option value="Dopemu Primary School">Dopemu Primary School</option></select> </div> </div>
+		<div class="form-row"> <div class="form-group"> <label for="localGov">Local Govt Educ Auth *</label> <select id="localGov" class="form-control" required="" onchange="loadSchools()"><option value="">Select LGEA</option></select> </div> <div class="form-group"> <label for="schoolName">Name of School/Institution *</label> <select id="schoolName" class="form-control" required=""><option value="">Select Primary School</option></select> </div> </div>
 
                             <div class="form-row full">
                                 <div class="form-group">
@@ -3767,10 +3767,11 @@ select.form-control option {
     <script>
 
 // Lagos State Local Government Areas and Primary Schools Data 
-let lagosStateData = { "Agege": [ "Agege Primary School I", "Agege Primary School II", "Oko-Oba Primary School", "Mulero Primary School", "Pen Cinema Primary School", "Dopemu Primary School" ], "Ajeromi-Ifelodun": [ "Ajeromi Primary School", "Ifelodun Primary School I", "Ifelodun Primary School II", "Boundary Primary School", "Alakija Primary School", "Olodi Primary School" ], "Alimosho": [ "Alimosho Primary School I", "Alimosho Primary School II", "Idimu Primary School", "Ikotun Primary School", "Egbe Primary School", "Iyana Ipaja Primary School" ], "Amuwo-Odofin": [ "Amuwo-Odofin Primary School", "Festac Primary School I", "Festac Primary School II", "Trade Fair Primary School", "Mile 2 Primary School", "Kirikiri Primary School" ], "Apapa": [ "Apapa Primary School I", "Apapa Primary School II", "Liverpool Primary School", "Creek Road Primary School", "Point Road Primary School", "Warehouse Primary School" ], "Badagry": [ "Badagry Primary School I", "Badagry Primary School II", "Ajara Primary School", "Iworo Primary School", "Koga Primary School", "Topo Primary School" ], "Epe": [ "Epe Primary School I", "Epe Primary School II", "Ejinrin Primary School", "Noforija Primary School", "Lekki Primary School", "Orimedu Primary School" ], "Eti-Osa": [ "Victoria Island Primary School", "Ikoyi Primary School", "Lekki Phase I Primary School", "Ajah Primary School", "Eti-Osa Primary School", "Ilasan Primary School" ], "Ibeju-Lekki": [ "Ibeju Primary School", "Lekki Primary School", "Akodo Primary School", "Elemoro Primary School", "Bogije Primary School", "Eleko Primary School" ], "Ifako-Ijaiye": [ "Ifako Primary School", "Ijaiye Primary School I", "Ijaiye Primary School II", "Alakuko Primary School", "Ojokoro Primary School", "Agbado Primary School" ], "Ikeja": [ "Ikeja Primary School I", "Ikeja Primary School II", "GRA Primary School", "Maryland Primary School", "Alausa Primary School", "Computer Village Primary School" ], "Ikorodu": [ "Ikorodu Primary School I", "Ikorodu Primary School II", "Igbogbo Primary School", "Bayeku Primary School", "Ijede Primary School", "Imota Primary School" ], "Kosofe": [ "Kosofe Primary School", "Ketu Primary School I", "Ketu Primary School II", "Mile 12 Primary School", "Owode Primary School", "Agboyi Primary School" ], "Lagos Island": [ "Lagos Island Primary School I", "Lagos Island Primary School II", "Tafawa Balewa Primary School", "Campos Primary School", "Oke-Arin Primary School", "Marina Primary School" ], "Lagos Mainland": [ "Lagos Mainland Primary School", "Yaba Primary School I", "Yaba Primary School II", "Ebute-Metta Primary School", "Oyingbo Primary School", "Sabo Primary School" ], "Mushin": [ "Mushin Primary School I", "Mushin Primary School II", "Papa Ajao Primary School", "Isolo Primary School", "Idi-Oro Primary School", "Oke-Afa Primary School" ], "Ojo": [ "Ojo Primary School I", "Ojo Primary School II", "Alaba Primary School", "Okokomaiko Primary School", "Shibiri Primary School", "Igando Primary School" ], "Oshodi-Isolo": [ "Oshodi Primary School I", "Oshodi Primary School II", "Isolo Primary School I", "Isolo Primary School II", "Mafoluku Primary School", "Bolade Primary School" ], "Shomolu": [ "Shomolu Primary School I", "Shomolu Primary School II", "Bariga Primary School", "Pedro Primary School", "Akoka Primary School", "Gbagada Primary School" ], "Surulere": [ "Surulere Primary School I", "Surulere Primary School II", "Itire Primary School", "Lawanson Primary School", "Aguda Primary School", "Adelabu Primary School" ] };
+let lagosStateData = {};
 
 // Load lagosStateData from localStorage if present
-(function loadLagosStateData() {
+(async function loadLagosStateData() {
+    await loadLagosStateDataFromCSV();
     try {
         const savedLagosData = localStorage.getItem('lagosStateData');
         if (savedLagosData) {
@@ -4053,6 +4054,37 @@ function toggleMobileSidebar() {
             }
         }
 
+// --- Function to fetch and parse CSV to build lagosStateData ---
+async function loadLagosStateDataFromCSV() {
+    try {
+        const response = await fetch('SCHOOL_LIST_AS_AT_JANUARY_2025 1,026.csv');
+        const csvText = await response.text();
+        const lines = csvText.split('\\n').filter(line => line.trim() !== '');
+        const newLagosStateData = {};
+
+        // Skip header row, assuming the first row is the header
+        for (let i = 1; i < lines.length; i++) {
+            const parts = lines[i].split(',');
+            if (parts.length >= 2) {
+                const lga = parts[0].trim();
+                const school = parts[1].trim();
+
+                if (lga && school) {
+                    if (!newLagosStateData[lga]) {
+                        newLagosStateData[lga] = [];
+                    }
+                    newLagosStateData[lga].push(school);
+                }
+            }
+        }
+
+        lagosStateData = newLagosStateData;
+        console.log('Successfully loaded and parsed school data from CSV.');
+    } catch (error) {
+        console.error('Error loading or parsing school data from CSV:', error);
+        // Fallback to existing data if CSV loading fails
+    }
+}
  // Load Local Government Areas into dropdown 
  function loadLocalGovernments() {
     const localGovDropdown = document.getElementById('localGov');
