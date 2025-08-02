@@ -659,12 +659,12 @@ select.form-control option {
 				
 				<div class="form-row">
                     <div class="form-group">
-                        <label for="silnat_a_ht_name">Head Teacher/Manager Name *</label>
-                        <input type="text" id="silnat_a_ht_name" name="silnat_a_ht_name" class="form-control">
+                        <label for="silat_1_2_ht_name">Head Teacher/Manager Name *</label>
+                        <input type="text" id="silat_1_2_ht_name" name="silnat_a_ht_name" class="form-control">
                     </div>
                     <div class="form-group">
-                        <label for="silnat_a_ht_contact">Contact Number</label>
-                        <input type="tel" id="silnat_a_ht_contact" name="silnat_a_ht_contact" class="form-control">
+                        <label for="silat_1_2_ht_contact">Contact Number</label>
+                        <input type="tel" id="silat_1_2_ht_contact" name="silnat_a_ht_contact" class="form-control">
                     </div>
                 </div>
 		              				
@@ -708,8 +708,8 @@ select.form-control option {
                 
 			<div class="form-row full">
             <div class="form-group">
-                <label for="silnat_a_institution_type">Institution Type *</label>
-                <select id="silnat_a_institution_type" name="silnat_a_institution_type" class="form-control" required="" onchange="handleSilnatInstitutionTypeChange()">
+                <label for="silat_1_2_institution_type">Institution Type *</label>
+                <select id="silat_1_2_institution_type" name="silnat_a_institution_type" class="form-control" required="" onchange="handleSilnatInstitutionTypeChange()">
                     <option value="">Select Institution Type</option>
                     <option value="regular_school">Regular School</option>
                     <option value="special_school">Special School</option>
@@ -722,23 +722,23 @@ select.form-control option {
 			
 			 <div class="form-row">
                 <div class="form-group">
-                    <label for="silnat_localGov">Local Government *</label> <!-- This will be part of Section B -->
-                    <input type="text" id="silnat_localGov" name="silnat_b_local_gov_common" class="form-control" required="">
+                    <label for="silat_1_2_localGov">Local Government *</label> <!-- This will be part of Section B -->
+                    <input type="text" id="silat_1_2_localGov" name="silnat_b_local_gov_common" class="form-control" required="">
                 </div>
             </div>
 			
             <div class="form-row">
                 <div class="form-group">
-                    <label for="silnat_schoolName">Name of School/Institution *</label> <!-- This label was already updated -->
-                    <input type="text" id="silnat_schoolName" name="silnat_b_institution_name_common" class="form-control" required="">
+                    <label for="silat_1_2_schoolName">Name of School/Institution *</label> <!-- This label was already updated -->
+                    <input type="text" id="silat_1_2_schoolName" name="silnat_b_institution_name_common" class="form-control" required="">
                 </div>
                 <div class="form-group">
-                    <label for="silnat_schoolAddress_common">Address of School/Institution *</label>
-                    <textarea id="silnat_schoolAddress_common" name="silnat_b_institution_address_common" class="form-control" rows="3" required=""></textarea>
+                    <label for="silat_1_2_schoolAddress_common">Address of School/Institution *</label>
+                    <textarea id="silat_1_2_schoolAddress_common" name="silnat_b_institution_address_common" class="form-control" rows="3" required=""></textarea>
                 </div>
                 <div class="form-group">
-                    <label for="silnat_location_common">Location</label>
-                    <select id="silnat_location_common" name="silnat_b_location_common" class="form-control">
+                    <label for="silat_1_2_location_common">Location</label>
+                    <select id="silat_1_2_location_common" name="silnat_b_location_common" class="form-control">
                         <option value="">Select Location (Optional)</option>
                         <option value="urban">Urban</option>
                         <option value="rural">Rural</option>
@@ -749,13 +749,13 @@ select.form-control option {
            
 			  <div class="form-row">
                                 <div class="form-group">
-                                    <label for="latitude">Latitude</label>
-                                    <input type="number" id="latitude" class="form-control" step="any" readonly="">
-                                    <button type="button" class="location-btn" onclick="getLocation()">📍 Get Current Location</button>
+                                    <label for="silat_1_2_latitude">Latitude</label>
+                                    <input type="number" id="silat_1_2_latitude" class="form-control" step="any" readonly="">
+                                    <button type="button" class="location-btn" onclick="getLocation(&#39;silat_1_2_latitude&#39;, &#39;silat_1_2_longitude&#39;)">📍 Get Current Location</button>
                                 </div>
                                 <div class="form-group">
-                                    <label for="longitude">Longitude</label>
-                                    <input type="number" id="longitude" class="form-control" step="any" readonly="">
+                                    <label for="silat_1_2_longitude">Longitude</label>
+                                    <input type="number" id="silat_1_2_longitude" class="form-control" step="any" readonly="">
                                 </div>
                             </div>	
 				
@@ -1057,8 +1057,8 @@ select.form-control option {
                     <textarea id="fence_repair_description" name="fence_repair_description" class="form-control" rows="2"></textarea>
                 </div>
                 <div class="form-group">
-                    <label for="school_perimeter">If No, what is the perimeter of the School?</label>
-                    <input type="text" id="school_perimeter" name="school_perimeter" class="form-control">
+                    <label for="silat_1_2_school_perimeter">If No, what is the perimeter of the School?</label>
+                    <input type="text" id="silat_1_2_school_perimeter" name="school_perimeter" class="form-control">
                 </div>
 
                 <h4>3. TOILET FACILITIES</h4>
@@ -1163,12 +1163,12 @@ select.form-control option {
                 <h4>Head Teacher Bio Data</h4>
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="silnat_a_ht_name">Head Teacher/Manager Name *</label>
-                        <input type="text" id="silnat_a_ht_name" name="silnat_a_ht_name" class="form-control">
+                        <label for="silat_1_3_ht_name">Head Teacher/Manager Name *</label>
+                        <input type="text" id="silat_1_3_ht_name" name="silnat_a_ht_name" class="form-control">
                     </div>
                     <div class="form-group">
-                        <label for="silnat_a_ht_contact">Contact Number</label>
-                        <input type="tel" id="silnat_a_ht_contact" name="silnat_a_ht_contact" class="form-control">
+                        <label for="silat_1_3_ht_contact">Contact Number</label>
+                        <input type="tel" id="silat_1_3_ht_contact" name="silnat_a_ht_contact" class="form-control">
                     </div>
                 </div>
 				</div>
@@ -1213,8 +1213,8 @@ select.form-control option {
                
 			 <div class="form-row full">
             <div class="form-group">
-                <label for="silnat_a_institution_type">Institution Type *</label>
-                <select id="silnat_a_institution_type" name="silnat_a_institution_type" class="form-control" required="" onchange="handleSilnatInstitutionTypeChange()">
+                <label for="silat_1_3_institution_type">Institution Type *</label>
+                <select id="silat_1_3_institution_type" name="silnat_a_institution_type" class="form-control" required="" onchange="handleSilnatInstitutionTypeChange()">
                     <option value="">Select Institution Type</option>
                     <option value="regular_school">Regular School</option>
                     <option value="special_school">Special School</option>
@@ -1227,23 +1227,23 @@ select.form-control option {
 			
 			 <div class="form-row">
                 <div class="form-group">
-                    <label for="silnat_localGov">Local Government *</label> <!-- This will be part of Section B -->
-                    <input type="text" id="silnat_localGov" name="silnat_b_local_gov_common" class="form-control" required="">
+                    <label for="silat_1_3_localGov">Local Government *</label> <!-- This will be part of Section B -->
+                    <input type="text" id="silat_1_3_localGov" name="silnat_b_local_gov_common" class="form-control" required="">
                 </div>
             </div>
 			
             <div class="form-row">
                 <div class="form-group">
-                    <label for="silnat_schoolName">Name of School/Institution *</label> <!-- This label was already updated -->
-                    <input type="text" id="silnat_schoolName" name="silnat_b_institution_name_common" class="form-control" required="">
+                    <label for="silat_1_3_schoolName">Name of School/Institution *</label> <!-- This label was already updated -->
+                    <input type="text" id="silat_1_3_schoolName" name="silnat_b_institution_name_common" class="form-control" required="">
                 </div>
                 <div class="form-group">
-                    <label for="silnat_schoolAddress_common">Address of School/Institution *</label>
-                    <textarea id="silnat_schoolAddress_common" name="silnat_b_institution_address_common" class="form-control" rows="3" required=""></textarea>
+                    <label for="silat_1_3_schoolAddress_common">Address of School/Institution *</label>
+                    <textarea id="silat_1_3_schoolAddress_common" name="silnat_b_institution_address_common" class="form-control" rows="3" required=""></textarea>
                 </div>
                 <div class="form-group">
-                    <label for="silnat_location_common">Location</label>
-                    <select id="silnat_location_common" name="silnat_b_location_common" class="form-control">
+                    <label for="silat_1_3_location_common">Location</label>
+                    <select id="silat_1_3_location_common" name="silnat_b_location_common" class="form-control">
                         <option value="">Select Location (Optional)</option>
                         <option value="urban">Urban</option>
                         <option value="rural">Rural</option>
@@ -1254,13 +1254,13 @@ select.form-control option {
            
 			  <div class="form-row">
                                 <div class="form-group">
-                                    <label for="latitude">Latitude</label>
-                                    <input type="number" id="latitude" class="form-control" step="any" readonly="">
-                                    <button type="button" class="location-btn" onclick="getLocation()">📍 Get Current Location</button>
+                                    <label for="silat_1_3_latitude">Latitude</label>
+                                    <input type="number" id="silat_1_3_latitude" class="form-control" step="any" readonly="">
+                                    <button type="button" class="location-btn" onclick="getLocation(&#39;silat_1_3_latitude&#39;, &#39;silat_1_3_longitude&#39;)">📍 Get Current Location</button>
                                 </div>
                                 <div class="form-group">
-                                    <label for="longitude">Longitude</label>
-                                    <input type="number" id="longitude" class="form-control" step="any" readonly="">
+                                    <label for="silat_1_3_longitude">Longitude</label>
+                                    <input type="number" id="silat_1_3_longitude" class="form-control" step="any" readonly="">
                                 </div>
                             </div>
              <div class="form-group">
@@ -1545,8 +1545,8 @@ select.form-control option {
                     <textarea id="fence_repair_description" name="fence_repair_description" class="form-control" rows="2"></textarea>
                 </div>
                 <div class="form-group">
-                    <label for="school_perimeter">If No, what is the perimeter of the School?</label>
-                    <input type="text" id="school_perimeter" name="school_perimeter" class="form-control">
+                    <label for="silat_1_3_school_perimeter">If No, what is the perimeter of the School?</label>
+                    <input type="text" id="silat_1_3_school_perimeter" name="school_perimeter" class="form-control">
                 </div>
 
                 <h4>3. TOILET FACILITIES</h4>
@@ -1694,8 +1694,8 @@ select.form-control option {
 			
 			<div class="form-row full">
 				<div class="form-group">
-                <label for="silnat_a_institution_type">Institution Type *</label>
-                <select id="silnat_a_institution_type" name="silnat_a_institution_type" class="form-control" required="" onchange="handleSilnatInstitutionTypeChange()">
+                <label for="silat_1_4_institution_type">Institution Type *</label>
+                <select id="silat_1_4_institution_type" name="silnat_a_institution_type" class="form-control" required="" onchange="handleSilnatInstitutionTypeChange()">
                     <option value="">Select Institution Type</option>
                     <option value="regular_school">Regular School</option>
                     <option value="special_school">Special School</option>
@@ -2005,12 +2005,12 @@ select.form-control option {
                 <h4>Head Teacher Bio Data</h4>
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="silnat_a_ht_name">Head Teacher/Manager Name *</label>
-                        <input type="text" id="silnat_a_ht_name" name="silnat_a_ht_name" class="form-control">
+                        <label for="silnat_form_ht_name">Head Teacher/Manager Name *</label>
+                        <input type="text" id="silnat_form_ht_name" name="silnat_a_ht_name" class="form-control">
                     </div>
                     <div class="form-group">
-                        <label for="silnat_a_ht_contact">Contact Number</label>
-                        <input type="tel" id="silnat_a_ht_contact" name="silnat_a_ht_contact" class="form-control">
+                        <label for="silnat_form_ht_contact">Contact Number</label>
+                        <input type="tel" id="silnat_form_ht_contact" name="silnat_a_ht_contact" class="form-control">
                     </div>
                 </div>
                 <div class="form-group">
@@ -2106,8 +2106,8 @@ select.form-control option {
 			
 			 <div class="form-row full">
             <div class="form-group">
-                <label for="silnat_a_institution_type">Institution Type *</label>
-                <select id="silnat_a_institution_type" name="silnat_a_institution_type" class="form-control" required="" onchange="handleSilnatInstitutionTypeChange()">
+                <label for="silnat_form_institution_type">Institution Type *</label>
+                <select id="silnat_form_institution_type" name="silnat_a_institution_type" class="form-control" required="" onchange="handleSilnatInstitutionTypeChange()">
                     <option value="">Select Institution Type</option>
                     <option value="regular_school">Regular School</option>
                     <option value="special_school">Special School</option>
@@ -2117,12 +2117,12 @@ select.form-control option {
                 </select>
             </div>
         </div>
-		<div class="form-row"> <div class="form-group"> <label for="localGov">Local Govt Educ Auth *</label> <select id="localGov" class="form-control" required="" onchange="loadSchools()"><option value="">Select LGEA</option><option value="Agege">Agege</option><option value="Ajeromi-Ifelodun">Ajeromi-Ifelodun</option><option value="Alimosho">Alimosho</option><option value="Amuwo-Odofin">Amuwo-Odofin</option><option value="Apapa">Apapa</option><option value="Badagry">Badagry</option><option value="Epe">Epe</option><option value="Eti-Osa">Eti-Osa</option><option value="Ibeju-Lekki">Ibeju-Lekki</option><option value="Ifako-Ijaiye">Ifako-Ijaiye</option><option value="Ikeja">Ikeja</option><option value="Ikorodu">Ikorodu</option><option value="Kosofe">Kosofe</option><option value="Lagos Island">Lagos Island</option><option value="Lagos Mainland">Lagos Mainland</option><option value="Mushin">Mushin</option><option value="Ojo">Ojo</option><option value="Oshodi-Isolo">Oshodi-Isolo</option><option value="Shomolu">Shomolu</option><option value="Surulere">Surulere</option></select> </div> <div class="form-group"> <label for="schoolName">Name of School/Institution *</label> <select id="schoolName" class="form-control" required=""><option value="">Select Primary School</option><option value="Agege Primary School I">Agege Primary School I</option><option value="Agege Primary School II">Agege Primary School II</option><option value="Oko-Oba Primary School">Oko-Oba Primary School</option><option value="Mulero Primary School">Mulero Primary School</option><option value="Pen Cinema Primary School">Pen Cinema Primary School</option><option value="Dopemu Primary School">Dopemu Primary School</option></select> </div> </div>
+		<div class="form-row"> <div class="form-group"> <label for="silnat_localGov">Local Govt Educ Auth *</label> <select id="silnat_localGov" class="form-control" required="" onchange="loadSchools('silnat_localGov', 'silnat_schoolName')"><option value="">Select LGEA</option><option value="Agege">Agege</option><option value="Ajeromi-Ifelodun">Ajeromi-Ifelodun</option><option value="Alimosho">Alimosho</option><option value="Amuwo-Odofin">Amuwo-Odofin</option><option value="Apapa">Apapa</option><option value="Badagry">Badagry</option><option value="Epe">Epe</option><option value="Eti-Osa">Eti-Osa</option><option value="Ibeju-Lekki">Ibeju-Lekki</option><option value="Ifako-Ijaiye">Ifako-Ijaiye</option><option value="Ikeja">Ikeja</option><option value="Ikorodu">Ikorodu</option><option value="Kosofe">Kosofe</option><option value="Lagos Island">Lagos Island</option><option value="Lagos Mainland">Lagos Mainland</option><option value="Mushin">Mushin</option><option value="Ojo">Ojo</option><option value="Oshodi-Isolo">Oshodi-Isolo</option><option value="Shomolu">Shomolu</option><option value="Surulere">Surulere</option></select> </div> <div class="form-group"> <label for="silnat_schoolName">Name of School/Institution *</label> <select id="silnat_schoolName" class="form-control" required=""><option value="">Select Primary School</option><option value="Agege Primary School I">Agege Primary School I</option><option value="Agege Primary School II">Agege Primary School II</option><option value="Oko-Oba Primary School">Oko-Oba Primary School</option><option value="Mulero Primary School">Mulero Primary School</option><option value="Pen Cinema Primary School">Pen Cinema Primary School</option><option value="Dopemu Primary School">Dopemu Primary School</option></select> </div> </div>
 
                             <div class="form-row full">
                                 <div class="form-group">
-                                    <label for="schoolAddress">Address of School/Institution *</label>
-                                    <textarea id="schoolAddress" class="form-control" rows="3" required=""></textarea>
+                                    <label for="silnat_schoolAddress">Address of School/Institution *</label>
+                                    <textarea id="silnat_schoolAddress" class="form-control" rows="3" required=""></textarea>
                                 </div>
                             </div>
 							
@@ -2143,13 +2143,13 @@ select.form-control option {
            
 			  <div class="form-row">
                                 <div class="form-group">
-                                    <label for="latitude">Latitude</label>
-                                    <input type="number" id="latitude" class="form-control" step="any" readonly="">
-                                    <button type="button" class="location-btn" onclick="getLocation()">📍 Get Current Location</button>
+                                    <label for="silnat_latitude">Latitude</label>
+                                    <input type="number" id="silnat_latitude" class="form-control" step="any" readonly="">
+                                    <button type="button" class="location-btn" onclick="getLocation(&#39;silnat_latitude&#39;, &#39;silnat_longitude&#39;)">📍 Get Current Location</button>
                                 </div>
                                 <div class="form-group">
-                                    <label for="longitude">Longitude</label>
-                                    <input type="number" id="longitude" class="form-control" step="any" readonly="">
+                                    <label for="silnat_longitude">Longitude</label>
+                                    <input type="number" id="silnat_longitude" class="form-control" step="any" readonly="">
                                 </div>
                             </div>
             <div class="form-row">
@@ -2467,8 +2467,8 @@ select.form-control option {
                     <textarea id="fence_repair_description" name="fence_repair_description" class="form-control" rows="2"></textarea>
                 </div>
                 <div class="form-group">
-                    <label for="school_perimeter">If No, what is the perimeter of the School?</label>
-                    <input type="text" id="school_perimeter" name="school_perimeter" class="form-control">
+                    <label for="silnat_school_perimeter">If No, what is the perimeter of the School?</label>
+                    <input type="text" id="silnat_school_perimeter" name="school_perimeter" class="form-control">
                 </div>
 
                 <h4>3. TOILET FACILITIES</h4>
@@ -2585,12 +2585,12 @@ select.form-control option {
         </div>
     </div>
 	<div class="form-group">
-        <label for="tcmats_lgea">LGEA:</label>
-        <input type="text" id="tcmats_lgea" name="tcmats_lgea" class="form-control">
+        <label for="voices_lgea">LGEA:</label>
+        <input type="text" id="voices_lgea" name="tcmats_lgea" class="form-control">
     </div>
     <div class="form-group">
-        <label for="tcmats_schoolName">Name of School</label>
-        <input type="text" id="tcmats_schoolName" name="tcmats_schoolName" class="form-control">
+        <label for="voices_schoolName">Name of School</label>
+        <input type="text" id="voices_schoolName" name="tcmats_schoolName" class="form-control">
     </div>
     <div class="form-group">
         <label>Location:</label>
@@ -3552,24 +3552,24 @@ select.form-control option {
                     <div id="auditSection" class="section hidden">
                         <h2>New Personnel &amp; Facility Audit</h2>
                         <form id="auditForm" class="audit-form" onsubmit="saveAudit(event)">
-                            <div class="form-row"> <div class="form-group"> <label for="localGov">Local Government *</label> <select id="localGov" class="form-control" required="" onchange="loadSchools()"><option value="">Select Local Government</option><option value="Agege">Agege</option><option value="Ajeromi-Ifelodun">Ajeromi-Ifelodun</option><option value="Alimosho">Alimosho</option><option value="Amuwo-Odofin">Amuwo-Odofin</option><option value="Apapa">Apapa</option><option value="Badagry">Badagry</option><option value="Epe">Epe</option><option value="Eti-Osa">Eti-Osa</option><option value="Ibeju-Lekki">Ibeju-Lekki</option><option value="Ifako-Ijaiye">Ifako-Ijaiye</option><option value="Ikeja">Ikeja</option><option value="Ikorodu">Ikorodu</option><option value="Kosofe">Kosofe</option><option value="Lagos Island">Lagos Island</option><option value="Lagos Mainland">Lagos Mainland</option><option value="Mushin">Mushin</option><option value="Ojo">Ojo</option><option value="Oshodi-Isolo">Oshodi-Isolo</option><option value="Shomolu">Shomolu</option><option value="Surulere">Surulere</option></select> </div> <div class="form-group"> <label for="schoolName">Primary School *</label> <select id="schoolName" class="form-control" required="" disabled=""> <option value="">Select LGA first</option> </select> </div> </div>
+                            <div class="form-row"> <div class="form-group"> <label for="audit_localGov">Local Government *</label> <select id="audit_localGov" class="form-control" required="" onchange="loadSchools('audit_localGov', 'audit_schoolName')"><option value="">Select Local Government</option><option value="Agege">Agege</option><option value="Ajeromi-Ifelodun">Ajeromi-Ifelodun</option><option value="Alimosho">Alimosho</option><option value="Amuwo-Odofin">Amuwo-Odofin</option><option value="Apapa">Apapa</option><option value="Badagry">Badagry</option><option value="Epe">Epe</option><option value="Eti-Osa">Eti-Osa</option><option value="Ibeju-Lekki">Ibeju-Lekki</option><option value="Ifako-Ijaiye">Ifako-Ijaiye</option><option value="Ikeja">Ikeja</option><option value="Ikorodu">Ikorodu</option><option value="Kosofe">Kosofe</option><option value="Lagos Island">Lagos Island</option><option value="Lagos Mainland">Lagos Mainland</option><option value="Mushin">Mushin</option><option value="Ojo">Ojo</option><option value="Oshodi-Isolo">Oshodi-Isolo</option><option value="Shomolu">Shomolu</option><option value="Surulere">Surulere</option></select> </div> <div class="form-group"> <label for="audit_schoolName">Primary School *</label> <select id="audit_schoolName" class="form-control" required="" disabled=""> <option value="">Select LGA first</option> </select> </div> </div>
 
                             <div class="form-row full">
                                 <div class="form-group">
-                                    <label for="schoolAddress">School Address *</label>
-                                    <textarea id="schoolAddress" class="form-control" rows="3" required=""></textarea>
+                                    <label for="audit_schoolAddress">School Address *</label>
+                                    <textarea id="audit_schoolAddress" class="form-control" rows="3" required=""></textarea>
                                 </div>
                             </div>
 
                             <div class="form-row">
                                 <div class="form-group">
-                                    <label for="latitude">Latitude</label>
-                                    <input type="number" id="latitude" class="form-control" step="any" readonly="">
-                                    <button type="button" class="location-btn" onclick="getLocation()">📍 Get Current Location</button>
+                                    <label for="audit_latitude">Latitude</label>
+                                    <input type="number" id="audit_latitude" class="form-control" step="any" readonly="">
+                                    <button type="button" class="location-btn" onclick="getLocation(&#39;audit_latitude&#39;, &#39;audit_longitude&#39;)">📍 Get Current Location</button>
                                 </div>
                                 <div class="form-group">
-                                    <label for="longitude">Longitude</label>
-                                    <input type="number" id="longitude" class="form-control" step="any" readonly="">
+                                    <label for="audit_longitude">Longitude</label>
+                                    <input type="number" id="audit_longitude" class="form-control" step="any" readonly="">
                                 </div>
                             </div>
 
@@ -3924,7 +3924,7 @@ function login() {
     console.log('Login attempt:', username, password);
     // Accept only exact credentials (case-insensitive username)
     if ((username === 'admin' && password === 'password123') || 
-        (username === 'auditor' && password === 'audit2024')) {
+        (username === 'assessor' && password === 'password2025')) {
         currentUser = username;
         // Save session to localStorage
         localStorage.setItem('auditAppCurrentUser', username);
@@ -3948,7 +3948,7 @@ function login() {
             msg.style.textAlign = 'center';
             document.getElementById('authScreen').appendChild(msg);
         }
-        msg.textContent = 'Invalid credentials!\n\nValid login credentials:\n• admin / password123\n• auditor / audit2024';
+        msg.textContent = 'Invalid credentials!\n\nValid login credentials:\n• admin / password123\n• assessor / password2025';
         setTimeout(()=>{msg.textContent='';}, 5000);
         console.log('Login failed');
     }
@@ -3970,14 +3970,15 @@ function logout() {
         // Navigation
         function showSection(sectionName, navElem) {
             // Hide all sections
-            const sections = document.querySelectorAll('.section');
+            const sections = document.querySelectorAll('.content-area > .section');
             sections.forEach(section => section.classList.add('hidden'));
             
             // Show selected section
-            document.getElementById(sectionName + 'Section').classList.remove('hidden');
+            const targetSection = document.getElementById(sectionName + 'Section');
+            if(targetSection) targetSection.classList.remove('hidden');
             
             // Update navigation
-            const navItems = document.querySelectorAll('.nav-item');
+            const navItems = document.querySelectorAll('.sidebar .nav-item');
             navItems.forEach(item => item.classList.remove('active'));
             if (navElem) {
                 navElem.classList.add('active');
@@ -3987,8 +3988,8 @@ function logout() {
     if (sectionName === 'sync') updateSyncSection && updateSyncSection();
         }
 
-        // Get current location
-        function getLocation() {
+        // Get current location - REFACTORED
+        function getLocation(latitudeId, longitudeId) {
             if (!navigator.geolocation) {
                 alert('Geolocation is not supported by this browser.');
                 return;
@@ -3996,8 +3997,8 @@ function logout() {
 
             navigator.geolocation.getCurrentPosition(
                 function(position) {
-                    document.getElementById('latitude').value = position.coords.latitude;
-                    document.getElementById('longitude').value = position.coords.longitude;
+                    if(document.getElementById(latitudeId)) document.getElementById(latitudeId).value = position.coords.latitude;
+                    if(document.getElementById(longitudeId)) document.getElementById(longitudeId).value = position.coords.longitude;
                     alert('Location captured successfully!');
                 },
                 function(error) {
@@ -4114,30 +4115,40 @@ function toggleMobileSidebar() {
             }
         }
 
- // Load Local Government Areas into dropdown 
+ // Load Local Government Areas into dropdown - REFACTORED
  function loadLocalGovernments() {
-    const localGovDropdown = document.getElementById('localGov');
     const lgas = Object.keys(lagosStateData).sort();
-    localGovDropdown.innerHTML = '<option value="">Select Local Government</option>';
-    lgas.forEach(lga => {
-        const option = document.createElement('option');
-        option.value = lga;
-        option.textContent = lga;
-        localGovDropdown.appendChild(option);
-    });
-    // Reset school dropdown
-    const schoolDropdown = document.getElementById('schoolName');
-    schoolDropdown.innerHTML = '<option value="">Select LGA first</option>';
-    schoolDropdown.disabled = true;
+
+    const populateDropdown = (dropdownId, placeholder) => {
+        const dropdown = document.getElementById(dropdownId);
+        if (!dropdown) return;
+        dropdown.innerHTML = `<option value="">${placeholder}</option>`;
+        lgas.forEach(lga => {
+            const option = document.createElement('option');
+            option.value = lga;
+            option.textContent = lga;
+            dropdown.appendChild(option);
+        });
+    };
+
+    populateDropdown('audit_localGov', 'Select Local Government');
+    populateDropdown('silnat_localGov', 'Select LGEA');
+    // Note: The other forms like silat_1_2, etc., use a simple text input for LGA, so no dropdown to populate.
 }
 
-function loadSchools() {
-    const localGov = document.getElementById('localGov').value;
-    const schoolDropdown = document.getElementById('schoolName');
-    schoolDropdown.innerHTML = '<option value="">Select Primary School</option>';
+// Load Schools into dropdown - REFACTORED
+function loadSchools(localGovId, schoolDropdownId) {
+    const localGovEl = document.getElementById(localGovId);
+    if (!localGovEl) return;
+    const localGov = localGovEl.value;
+    const schoolDropdown = document.getElementById(schoolDropdownId);
+    if (!schoolDropdown) return;
+
+    const placeholder = (schoolDropdownId === 'silnat_schoolName') ? 'Select Primary School' : 'Select LGA first';
+    schoolDropdown.innerHTML = `<option value="">${placeholder}</option>`;
+
     if (!localGov) {
         schoolDropdown.disabled = true;
-        schoolDropdown.innerHTML = '<option value="">Select LGA first</option>';
         return;
     }
     schoolDropdown.disabled = false;
@@ -4213,27 +4224,19 @@ function handleCSVUpload(event) {
         }
         // Update dropdowns to only show imported LGAs and schools
         loadLocalGovernments();
-        document.getElementById('schoolName').innerHTML = '<option value="">Select LGA first</option>';
-        document.getElementById('schoolName').disabled = true;
+        if(document.getElementById('audit_schoolName')) {
+            document.getElementById('audit_schoolName').innerHTML = '<option value="">Select LGA first</option>';
+            document.getElementById('audit_schoolName').disabled = true;
+        }
+        if(document.getElementById('silnat_schoolName')) {
+            document.getElementById('silnat_schoolName').innerHTML = '<option value="">Select Primary School</option>';
+        }
         // Do NOT import records or update dashboard/records table
         document.getElementById('csvUploadMsg').style.color = 'var(--lagos-green)';
         document.getElementById('csvUploadMsg').textContent = `Imported ${Object.keys(newLgaSchools).length} LGAs from CSV. Use the form to add new audits.`;
         setTimeout(()=>{document.getElementById('csvUploadMsg').textContent='';}, 4000);
     };
     reader.readAsText(file);
-}
-
-// Update loadLocalGovernments to only use lagosStateData (no old LGAs)
-function loadLocalGovernments() {
-    const localGovDropdown = document.getElementById('localGov');
-    const lgas = Object.keys(lagosStateData).sort();
-    localGovDropdown.innerHTML = '<option value="">Select Local Government</option>';
-    lgas.forEach(lga => {
-        const option = document.createElement('option');
-        option.value = lga;
-        option.textContent = lga;
-        localGovDropdown.appendChild(option);
-    });
 }
 
 // CSV parsing function
@@ -4385,7 +4388,7 @@ async function fetchAuditsFromBackend() {
     };
 })();
 
-// Save audit to backend on add/edit
+// Save audit to backend on add/edit - REFACTORED
 async function saveAudit(event) {
     event.preventDefault();
     if (uploadedFiles.length > 5) {
@@ -4419,11 +4422,11 @@ async function saveAudit(event) {
         const idx = auditData.findIndex(a => a.id == editId);
         if (idx === -1) return alert('Audit not found.');
         audit = auditData[idx];
-        audit.schoolName = document.getElementById('schoolName').value;
-        audit.localGov = document.getElementById('localGov').value;
-        audit.schoolAddress = document.getElementById('schoolAddress').value;
-        audit.latitude = parseFloat(document.getElementById('latitude').value) || null;
-        audit.longitude = parseFloat(document.getElementById('longitude').value) || null;
+        audit.schoolName = document.getElementById('audit_schoolName').value;
+        audit.localGov = document.getElementById('audit_localGov').value;
+        audit.schoolAddress = document.getElementById('audit_schoolAddress').value;
+        audit.latitude = parseFloat(document.getElementById('audit_latitude').value) || null;
+        audit.longitude = parseFloat(document.getElementById('audit_longitude').value) || null;
         audit.principalName = document.getElementById('principalName').value;
         audit.totalTeachers = parseInt(document.getElementById('totalTeachers').value) || 0;
         audit.totalStudents = parseInt(document.getElementById('totalStudents').value) || 0;
@@ -4443,11 +4446,11 @@ async function saveAudit(event) {
         // New audit
         audit = {
             id: Date.now(),
-            schoolName: document.getElementById('schoolName').value,
-            localGov: document.getElementById('localGov').value,
-            schoolAddress: document.getElementById('schoolAddress').value,
-            latitude: parseFloat(document.getElementById('latitude').value) || null,
-            longitude: parseFloat(document.getElementById('longitude').value) || null,
+            schoolName: document.getElementById('audit_schoolName').value,
+            localGov: document.getElementById('audit_localGov').value,
+            schoolAddress: document.getElementById('audit_schoolAddress').value,
+            latitude: parseFloat(document.getElementById('audit_latitude').value) || null,
+            longitude: parseFloat(document.getElementById('audit_longitude').value) || null,
             principalName: document.getElementById('principalName').value,
             totalTeachers: parseInt(document.getElementById('totalTeachers').value) || 0,
             totalStudents: parseInt(document.getElementById('totalStudents').value) || 0,
@@ -4476,9 +4479,9 @@ async function saveAudit(event) {
     event.target.reset();
     uploadedFiles = [];
     document.getElementById('uploadedFiles').innerHTML = '';
-    document.getElementById('localGov').value = '';
-    document.getElementById('schoolName').innerHTML = '<option value="">Select LGA first</option>';
-    document.getElementById('schoolName').disabled = true;
+    document.getElementById('audit_localGov').value = '';
+    document.getElementById('audit_schoolName').innerHTML = '<option value="">Select LGA first</option>';
+    document.getElementById('audit_schoolName').disabled = true;
     updateDashboard();
     document.querySelector('#auditForm button[type="submit"]').textContent = "💾 Save Audit";
 }
@@ -4593,12 +4596,12 @@ function editRecord(id) {
     // Show audit form section
     showSection('audit');
     // Populate form fields
-    document.getElementById('localGov').value = audit.localGov || '';
-    loadSchools();
-    document.getElementById('schoolName').value = audit.schoolName || '';
-    document.getElementById('schoolAddress').value = audit.schoolAddress || '';
-    document.getElementById('latitude').value = audit.latitude || '';
-    document.getElementById('longitude').value = audit.longitude || '';
+    document.getElementById('audit_localGov').value = audit.localGov || '';
+    loadSchools('audit_localGov', 'audit_schoolName');
+    document.getElementById('audit_schoolName').value = audit.schoolName || '';
+    document.getElementById('audit_schoolAddress').value = audit.schoolAddress || '';
+    document.getElementById('audit_latitude').value = audit.latitude || '';
+    document.getElementById('audit_longitude').value = audit.longitude || '';
     document.getElementById('principalName').value = audit.principalName || '';
     document.getElementById('totalTeachers').value = audit.totalTeachers || '';
     document.getElementById('totalStudents').value = audit.totalStudents || '';
@@ -4701,12 +4704,12 @@ function editRecord(id) {
     const audit = auditData.find(a => a.id == id);
     if (!audit) return alert('Audit not found.');
     showSection('audit');
-    document.getElementById('localGov').value = audit.localGov || '';
-    loadSchools();
-    document.getElementById('schoolName').value = audit.schoolName || '';
-    document.getElementById('schoolAddress').value = audit.schoolAddress || '';
-    document.getElementById('latitude').value = audit.latitude || '';
-    document.getElementById('longitude').value = audit.longitude || '';
+    document.getElementById('audit_localGov').value = audit.localGov || '';
+    loadSchools('audit_localGov','audit_schoolName');
+    document.getElementById('audit_schoolName').value = audit.schoolName || '';
+    document.getElementById('audit_schoolAddress').value = audit.schoolAddress || '';
+    document.getElementById('audit_latitude').value = audit.latitude || '';
+    document.getElementById('audit_longitude').value = audit.longitude || '';
     document.getElementById('principalName').value = audit.principalName || '';
     document.getElementById('totalTeachers').value = audit.totalTeachers || '';
     document.getElementById('totalStudents').value = audit.totalStudents || '';
