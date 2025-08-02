@@ -751,7 +751,7 @@ select.form-control option {
                                 <div class="form-group">
                                     <label for="latitude">Latitude</label>
                                     <input type="number" id="latitude" class="form-control" step="any" readonly="">
-                                    <button type="button" class="location-btn" onclick="getLocation()">📍 Get Current Location</button>
+                                    <button type="button" class="location-btn" onclick="getLocation(this)">📍 Get Current Location</button>
                                 </div>
                                 <div class="form-group">
                                     <label for="longitude">Longitude</label>
@@ -1256,7 +1256,7 @@ select.form-control option {
                                 <div class="form-group">
                                     <label for="latitude">Latitude</label>
                                     <input type="number" id="latitude" class="form-control" step="any" readonly="">
-                                    <button type="button" class="location-btn" onclick="getLocation()">📍 Get Current Location</button>
+                                    <button type="button" class="location-btn" onclick="getLocation(this)">📍 Get Current Location</button>
                                 </div>
                                 <div class="form-group">
                                     <label for="longitude">Longitude</label>
@@ -2145,7 +2145,7 @@ select.form-control option {
                                 <div class="form-group">
                                     <label for="latitude">Latitude</label>
                                     <input type="number" id="latitude" class="form-control" step="any" readonly="">
-                                    <button type="button" class="location-btn" onclick="getLocation()">📍 Get Current Location</button>
+                                    <button type="button" class="location-btn" onclick="getLocation(this)">📍 Get Current Location</button>
                                 </div>
                                 <div class="form-group">
                                     <label for="longitude">Longitude</label>
@@ -3565,7 +3565,7 @@ select.form-control option {
                                 <div class="form-group">
                                     <label for="latitude">Latitude</label>
                                     <input type="number" id="latitude" class="form-control" step="any" readonly="">
-                                    <button type="button" class="location-btn" onclick="getLocation()">📍 Get Current Location</button>
+                                    <button type="button" class="location-btn" onclick="getLocation(this)">📍 Get Current Location</button>
                                 </div>
                                 <div class="form-group">
                                     <label for="longitude">Longitude</label>
@@ -3988,16 +3988,30 @@ function logout() {
         }
 
         // Get current location
-        function getLocation() {
+        function getLocation(button) {
             if (!navigator.geolocation) {
                 alert('Geolocation is not supported by this browser.');
                 return;
             }
 
+            const formRow = button.closest('.form-row');
+            if (!formRow) {
+                alert('Could not find the parent form row for the location button.');
+                return;
+            }
+
+            const latInput = formRow.querySelector('input[id="latitude"]');
+            const lonInput = formRow.querySelector('input[id="longitude"]');
+
+            if (!latInput || !lonInput) {
+                alert('Could not find latitude/longitude input fields within the row.');
+                return;
+            }
+
             navigator.geolocation.getCurrentPosition(
                 function(position) {
-                    document.getElementById('latitude').value = position.coords.latitude;
-                    document.getElementById('longitude').value = position.coords.longitude;
+                    latInput.value = position.coords.latitude;
+                    lonInput.value = position.coords.longitude;
                     alert('Location captured successfully!');
                 },
                 function(error) {
