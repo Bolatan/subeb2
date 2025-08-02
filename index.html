@@ -4059,7 +4059,7 @@ async function loadLagosStateDataFromCSV() {
     try {
         const response = await fetch('SCHOOL_LIST_AS_AT_JANUARY_2025 1,026.csv');
         const csvText = await response.text();
-        const lines = csvText.split('\\n').filter(line => line.trim() !== '');
+        const lines = csvText.split('\n').filter(line => line.trim() !== '');
         const newLagosStateData = {};
 
         // Skip header row, assuming the first row is the header
