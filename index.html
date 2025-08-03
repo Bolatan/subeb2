@@ -652,8 +652,8 @@ select.form-control option {
         <div id="landingPage" class="section">
             <div class="landing-header">
                 <img src="subeb.jpg" alt="LASUBEB Logo" class="landing-logo">
-                <h1 style="color:white;font-size:2.2rem; margin-left: 20px; flex-grow: 1; text-align: center;">Welcome to LASUBEB/PIMU Needs Assessment Portal</h1>
-				<button id="toggleOfflineBtn" class="btn" style="width:auto;padding:8px 16px;margin-left:10px;" onclick="toggleOfflineMode()">Activate ON/OFFLINE Mode</button>
+                <h1 style="color:white;font-size:2.2rem; margin-left: 20px; flex-grow: 1; text-align: center;">Welcome to LASUBEB/PIMU Needs Assessment Portal <span id="landingStatusIndicator" style="font-size: 1.2rem; color: var(--lagos-yellow);"></span></h1>
+				<button id="toggleOfflineBtn" class="btn" style="width:auto;padding:8px 16px;margin-left:10px;" onclick="toggleOfflineMode()">Switch to Offline Mode</button>
 				<button class="btn btn-secondary" style="width:auto;padding:8px 16px;margin-left:20px;" onclick="logout()">Sign Out</button>
             </div>
             <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:32px;max-width:1000px;margin:0 auto; margin-top: 32px;">
@@ -3920,7 +3920,7 @@ window.onload = function() {
         updateDashboard();
         loadRecords();
         updateConnectionStatus();
-        updateOfflineButtonText();
+        updateOfflineStatusDisplay();
     } else {
         document.getElementById('authScreen').classList.remove('hidden');
         document.getElementById('mainApp').classList.add('hidden');
@@ -3945,17 +3945,25 @@ function toggleOfflineMode() {
     forceOffline = !forceOffline;
     localStorage.setItem('auditAppForceOffline', JSON.stringify(forceOffline));
     updateConnectionStatus();
-    updateOfflineButtonText();
+    updateOfflineStatusDisplay();
     alert(`Application is now in ${forceOffline ? 'OFFLINE' : 'ONLINE'} mode.`);
 }
 
-function updateOfflineButtonText() {
+function updateOfflineStatusDisplay() {
     const btn = document.getElementById('toggleOfflineBtn');
-    if (btn) {
-        if (forceOffline) {
-            btn.textContent = 'Switch to Online Mode';
-        } else {
-            btn.textContent = 'Switch to Offline Mode';
+    const indicator = document.getElementById('landingStatusIndicator');
+
+    if (forceOffline) { // Offline mode
+        if (btn) btn.textContent = 'Switch to Online Mode';
+        if (indicator) {
+            indicator.textContent = '(Offline)';
+            indicator.style.color = 'var(--lagos-red)';
+        }
+    } else { // Online mode
+        if (btn) btn.textContent = 'Switch to Offline Mode';
+        if (indicator) {
+            indicator.textContent = '(Online)';
+            indicator.style.color = 'var(--lagos-yellow)';
         }
     }
 }
@@ -3995,7 +4003,7 @@ function login() {
         updateDashboard();
         loadRecords();
         updateConnectionStatus();
-        updateOfflineButtonText();
+        updateOfflineStatusDisplay();
     } else {
         // Show error message in UI
         let msg = document.getElementById('loginErrorMsg');
