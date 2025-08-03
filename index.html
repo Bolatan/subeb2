@@ -542,15 +542,6 @@ footer {
   box-shadow: 0 4px 24px rgba(30,64,175,0.10);
   padding: 32px 18px 24px 18px;
   margin-bottom: 32px;
-  position: relative;
-}
-
-.landing-signout-btn {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    width: auto;
-    padding: 8px 16px;
 }
 
 
@@ -659,10 +650,11 @@ select.form-control option {
 
         <!-- Landing Page: Four Survey Cards -->
         <div id="landingPage" class="section">
-            <button class="btn btn-secondary landing-signout-btn" onclick="logout()">Sign Out</button>
             <div class="landing-header">
                 <img src="subeb.jpg" alt="LASUBEB Logo" class="landing-logo">
                 <h1 style="color:white;font-size:2.2rem; margin-left: 20px; flex-grow: 1; text-align: center;">Welcome to LASUBEB/PIMU Needs Assessment Portal</h1>
+				<button id="toggleOfflineBtn" class="btn" style="width:auto;padding:8px 16px;margin-left:10px;" onclick="toggleOfflineMode()">Activate ON/OFFLINE Mode</button>
+				<button class="btn btn-secondary" style="width:auto;padding:8px 16px;margin-left:20px;" onclick="logout()">Sign Out</button>
             </div>
             <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:32px;max-width:1000px;margin:0 auto; margin-top: 32px;">
                 <div class="survey-card" onclick="showSurvey(&#39;silnat&#39;)">
@@ -3921,6 +3913,7 @@ window.onload = function() {
         updateDashboard();
         loadRecords();
         updateConnectionStatus();
+        updateOfflineButtonText();
     } else {
         document.getElementById('authScreen').classList.remove('hidden');
         document.getElementById('mainApp').classList.add('hidden');
@@ -3939,6 +3932,25 @@ function toggleForceOffline() {
         console.error('Error saving forceOffline state:', e);
     }
     updateConnectionStatus();
+}
+
+function toggleOfflineMode() {
+    forceOffline = !forceOffline;
+    localStorage.setItem('auditAppForceOffline', JSON.stringify(forceOffline));
+    updateConnectionStatus();
+    updateOfflineButtonText();
+    alert(`Application is now in ${forceOffline ? 'OFFLINE' : 'ONLINE'} mode.`);
+}
+
+function updateOfflineButtonText() {
+    const btn = document.getElementById('toggleOfflineBtn');
+    if (btn) {
+        if (forceOffline) {
+            btn.textContent = 'Switch to Online Mode';
+        } else {
+            btn.textContent = 'Switch to Offline Mode';
+        }
+    }
 }
 
 function loadSession() {
@@ -3976,6 +3988,7 @@ function login() {
         updateDashboard();
         loadRecords();
         updateConnectionStatus();
+        updateOfflineButtonText();
     } else {
         // Show error message in UI
         let msg = document.getElementById('loginErrorMsg');
