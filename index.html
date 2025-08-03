@@ -653,8 +653,10 @@ select.form-control option {
             <div class="landing-header">
                 <img src="subeb.jpg" alt="LASUBEB Logo" class="landing-logo">
                 <h1 style="color:white;font-size:2.2rem; margin-left: 20px; flex-grow: 1; text-align: center;">Welcome to LASUBEB/PIMU Needs Assessment Portal <span id="landingStatusIndicator" style="font-size: 1.2rem; color: var(--lagos-yellow);">&nbsp;</span></h1>
-				<button id="toggleOfflineBtn" class="btn" style="width:auto;padding:8px 16px;margin-left:10px;" onclick="toggleOfflineMode()">Switch to Offline Mode</button>
-				<button class="btn btn-secondary" style="width:auto;padding:8px 16px;margin-left:20px;" onclick="logout()">Sign Out</button>
+				<div class="header-actions">
+                    <button id="toggleOfflineBtn" class="btn" style="width:auto;padding:8px 16px;" onclick="toggleOfflineMode()">Go Offline</button>
+                    <button class="btn btn-secondary" style="width:auto;padding:8px 16px;margin-left:10px;" onclick="logout()">Sign Out</button>
+                </div>
             </div>
             <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:32px;max-width:1000px;margin:0 auto; margin-top: 32px;">
                 <div class="survey-card" onclick="showSurvey(&#39;silnat&#39;)">
@@ -3751,10 +3753,17 @@ select.form-control option {
 .landing-header {
     display: flex;
     align-items: center;
-    justify-content: flex-start; /* Align items to the start */
+    justify-content: space-between; /* Align items for better distribution */
     padding: 10px 0; /* Adjust padding as needed */
     margin-bottom: 20px; /* Space below the header */
     border-bottom: 2px solid var(--lagos-yellow); /* Optional: adds a separator line */
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0; /* Prevents shrinking when the title grows */
+    margin-left: 20px; /* Adds space between title and buttons */
 }
 
 .landing-logo {
@@ -3957,13 +3966,13 @@ function updateOfflineStatusDisplay() {
     const indicator = document.getElementById('landingStatusIndicator');
 
     if (forceOffline) { // Offline mode
-        if (btn) btn.textContent = 'Switch to Online Mode';
+        if (btn) btn.textContent = 'Go Online';
         if (indicator) {
             indicator.textContent = '(Offline)';
             indicator.style.color = 'var(--lagos-red)';
         }
     } else { // Online mode
-        if (btn) btn.textContent = 'Switch to Offline Mode';
+        if (btn) btn.textContent = 'Go Offline';
         if (indicator) {
             indicator.textContent = '(Online)';
             indicator.style.color = 'var(--lagos-yellow)';
@@ -3993,7 +4002,7 @@ function login() {
     console.log('Login attempt:', username, password);
     // Accept only exact credentials (case-insensitive username)
     if ((username === 'admin' && password === 'password123') || 
-        (username === 'auditor' && password === 'audit2024')) {
+        (username === 'assessor' && password === 'password2025')) {
         currentUser = username;
         // Save session to localStorage
         localStorage.setItem('auditAppCurrentUser', username);
