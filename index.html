@@ -3482,6 +3482,9 @@ select.form-control option {
         </div>
         <!-- Main Application (hidden until needed) -->
         <div id="mainApp" class="hidden">
+            <div id="offlineBanner" style="display: none; background-color: var(--lagos-yellow); color: var(--lagos-navy); text-align: center; padding: 10px; font-weight: bold;">
+                You are currently in Offline Mode. Your data is being saved locally.
+            </div>
             <div class="header">
                 <div class="logo">
                     <img src="subeb.jpg" alt="Lagos State Logo">
@@ -4614,7 +4617,7 @@ async function fetchAuditsFromBackend() {
     };
 })();
 
-// Save audit to backend on add/edit
+// Save audit (offline-first)
 async function saveAudit(event) {
     event.preventDefault();
     if (uploadedFiles.length > 5) {
@@ -4627,24 +4630,9 @@ async function saveAudit(event) {
     const form = document.getElementById('auditForm');
     const editId = form.getAttribute('data-edit-id');
     let audit;
-    // Upload images to backend first
-    const photoNames = [];
-    for (const file of uploadedFiles) {
-        if (file.data && file.name) {
-            let base64Data = file.data;
-            if (base64Data.startsWith('data:')) {
-                base64Data = base64Data.split(',')[1];
-            }
-            await fetch('/api/photo', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ filename: file.name, data: base64Data, type: file.type || 'image/jpeg' })
-            });
-            photoNames.push(file.name);
-        }
-    }
+
     if (editId) {
-        // Edit mode: update existing audit
+        // Edit mode
         const idx = auditData.findIndex(a => a.id == editId);
         if (idx === -1) return alert('Audit not found.');
         audit = auditData[idx];
@@ -4658,16 +4646,11 @@ async function saveAudit(event) {
         audit.totalStudents = parseInt(document.getElementById('totalStudents').value) || 0;
         audit.facilityCondition = document.getElementById('facilityCondition').value;
         audit.additionalNotes = document.getElementById('additionalNotes').value;
-        audit.photos = [...photoNames];
+        // Store full base64 data for photos, to be uploaded on sync
+        audit.photos = [...uploadedFiles];
         audit.synced = false;
         audit.timestamp = new Date().toISOString();
         auditData[idx] = audit;
-        // PATCH: Update in backend
-        await fetch(`/api/audits/${audit.id}`, {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(audit)
-        });
     } else {
         // New audit
         audit = {
@@ -4682,34 +4665,34 @@ async function saveAudit(event) {
             totalStudents: parseInt(document.getElementById('totalStudents').value) || 0,
             facilityCondition: document.getElementById('facilityCondition').value,
             additionalNotes: document.getElementById('additionalNotes').value,
-            photos: [...photoNames],
+            // Store full base64 data for photos, to be uploaded on sync
+            photos: [...uploadedFiles],
             auditor: currentUser,
             timestamp: new Date().toISOString(),
             synced: false
         };
         auditData.push(audit);
-        // PATCH: Save to backend
-        await fetch('/api/audits', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(audit)
-        });
     }
-    saveData();
+
+    saveData(); // Persist to localStorage immediately
     updateDashboard();
     loadRecords();
-    // Reset edit mode
+
+    // Reset form and UI
     form.removeAttribute('data-edit-id');
-    alert('Audit saved successfully!');
-    // Reset form
+    alert('Audit saved locally successfully!');
     event.target.reset();
     uploadedFiles = [];
-    document.getElementById('uploadedFiles').innerHTML = '';
+    updateFileDisplay();
     document.getElementById('localGov').value = '';
     document.getElementById('schoolName').innerHTML = '<option value="">Select LGA first</option>';
     document.getElementById('schoolName').disabled = true;
-    updateDashboard();
     document.querySelector('#auditForm button[type="submit"]').textContent = "💾 Save Audit";
+
+    // After saving, attempt to sync if online
+    if (isEffectivelyOnline()) {
+        syncData();
+    }
 }
 
 // PATCH: Delete audit from backend
@@ -4855,55 +4838,92 @@ function editRecord(id) {
     document.querySelector('#auditForm button[type="submit"]').textContent = '✏️ Update Audit';
 }
 
-// --- PATCH: Sync Now button logic ---
+// --- PATCH: Sync Now button logic (Improved) ---
 async function syncData() {
+    const logContainer = document.getElementById('syncLog');
+    const logMessage = (message, color) => {
+        if (logContainer) {
+            const msg = document.createElement('div');
+            msg.style.margin = '5px 0';
+            msg.style.color = `var(--lagos-${color})`;
+            msg.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+            logContainer.prepend(msg);
+        }
+    };
+
     if (!isEffectivelyOnline()) {
         alert('Cannot sync. Application is offline.');
-        const log = document.getElementById('syncLog');
-        if (log) {
-            const msg = document.createElement('div');
-            msg.style.margin = '10px 0';
-            msg.style.color = 'var(--lagos-red)';
-            msg.textContent = `Sync failed: Application is offline.`;
-            log.prepend(msg);
-        }
+        logMessage('Sync failed: Application is offline.', 'red');
         return;
     }
-    // Find all unsynced audits
+
     const unsynced = auditData.filter(a => !a.synced);
     if (unsynced.length === 0) {
         alert('No pending records to sync.');
         return;
     }
-    let success = 0, fail = 0;
+
+    logMessage(`Starting sync for ${unsynced.length} record(s)...`, 'blue');
+    let successCount = 0;
+    let failCount = 0;
+
     for (const audit of unsynced) {
+        let syncFailed = false;
+        const photoNames = [];
+
         try {
-            // Mark as synced and update backend
-            audit.synced = true;
-            await fetch(`/api/audits/${audit.id}`, {
-                method: 'PUT',
+            // Step 1: Upload photos
+            if (audit.photos && audit.photos.length > 0) {
+                logMessage(`Uploading ${audit.photos.length} photo(s) for audit: ${audit.schoolName}...`, 'dark-gray');
+                for (const photo of audit.photos) {
+                    if (photo.data && photo.name) {
+                        let base64Data = photo.data.split(',')[1];
+                        const photoRes = await fetch('/api/photo', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ filename: photo.name, data: base64Data, type: photo.type || 'image/jpeg' })
+                        });
+                        if (!photoRes.ok) throw new Error(`Photo upload failed for ${photo.name}`);
+                        photoNames.push(photo.name);
+                    }
+                }
+            }
+
+            // Step 2: Prepare and upload audit data (without base64 photos)
+            const auditPayload = { ...audit, photos: photoNames };
+
+            logMessage(`Syncing audit data for: ${audit.schoolName}...`, 'dark-gray');
+            const auditRes = await fetch(`/api/audits`, { // Always POST, let backend handle create/update
+                method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(audit)
+                body: JSON.stringify(auditPayload)
             });
-            success++;
+
+            if (!auditRes.ok) throw new Error(`Audit data sync failed for ${audit.schoolName}`);
+
+            // Step 3: Mark as synced locally
+            const localAudit = auditData.find(a => a.id === audit.id);
+            if (localAudit) {
+                localAudit.synced = true;
+            }
+            successCount++;
+            logMessage(`Successfully synced: ${audit.schoolName}`, 'green');
+
         } catch (e) {
-            fail++;
+            syncFailed = true;
+            failCount++;
+            logMessage(`ERROR syncing ${audit.schoolName}: ${e.message}`, 'red');
         }
     }
+
     saveData();
     updateDashboard();
     loadRecords();
     updateSyncSection();
-    // Log result
-    const log = document.getElementById('syncLog');
-    if (log) {
-        const msg = document.createElement('div');
-        msg.style.margin = '10px 0';
-        msg.style.color = (fail === 0) ? 'var(--lagos-green)' : 'var(--lagos-red)';
-        msg.textContent = `Sync complete: ${success} record(s) synced${fail ? ', ' + fail + ' failed' : ''}.`;
-        log.prepend(msg);
-    }
-    alert(`Sync complete: ${success} record(s) synced${fail ? ', ' + fail + ' failed' : ''}.`);
+
+    const finalMsg = `Sync complete. Successful: ${successCount}, Failed: ${failCount}.`;
+    logMessage(finalMsg, failCount > 0 ? 'red' : 'green');
+    alert(finalMsg);
 }
 
 // Connection status function
@@ -4914,6 +4934,7 @@ function isEffectivelyOnline() {
 function updateConnectionStatus() {
     const statusDot = document.getElementById('connectionStatus');
     const statusText = document.getElementById('connectionText');
+    const offlineBanner = document.getElementById('offlineBanner');
     const online = isEffectivelyOnline();
 
     if (online) {
@@ -4922,6 +4943,9 @@ function updateConnectionStatus() {
         }
         if (statusText) {
             statusText.textContent = 'Online';
+        }
+        if (offlineBanner) {
+            offlineBanner.style.display = 'none';
         }
     } else {
         if (statusDot) {
@@ -4933,6 +4957,9 @@ function updateConnectionStatus() {
             } else {
                 statusText.textContent = 'Offline';
             }
+        }
+        if (offlineBanner) {
+            offlineBanner.style.display = 'block';
         }
     }
 }
