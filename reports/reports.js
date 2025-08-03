@@ -2,6 +2,9 @@ window.onload = function() {
     fetchAuditReports();
     // Fetch reports for all other surveys
     fetchAndRender('silnat', 'silnatReportsTable', renderSilnatReportRow);
+    fetchAndRender('silat_1.2', 'silat1_2ReportsTable', renderSilat1_2ReportRow);
+    fetchAndRender('silat_1.3', 'silat1_3ReportsTable', renderSilat1_3ReportRow);
+    fetchAndRender('silat_1.4', 'silat1_4ReportsTable', renderSilat1_4ReportRow);
     fetchAndRender('tcmats', 'tcmatsReportsTable', renderTcmatsReportRow);
     fetchAndRender('lori', 'loriReportsTable', renderLoriReportRow);
     fetchAndRender('voices', 'voicesReportsTable', renderVoicesReportRow);
@@ -14,18 +17,14 @@ function fetchAuditReports() {
         return;
     }
     tableBody.innerHTML = '<tr><td colspan="9">Loading reports...</td></tr>';
-    fetch('/api/audits')
-        .then(response => {
-            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-            return response.json();
-        })
-        .then(audits => {
-            renderAuditReports(audits);
-        })
-        .catch(error => {
-            console.error('Error fetching audit reports:', error);
-            tableBody.innerHTML = '<tr><td colspan="9" style="color:red;">Could not load reports. Please try again later.</td></tr>';
-        });
+    try {
+        const saved = localStorage.getItem('auditData');
+        const audits = saved ? JSON.parse(saved) : [];
+        renderAuditReports(audits);
+    } catch (error) {
+        console.error('Error fetching audit reports from localStorage:', error);
+        tableBody.innerHTML = '<tr><td colspan="9" style="color:red;">Could not load reports from local storage.</td></tr>';
+    }
 }
 
 function renderAuditReports(audits) {
@@ -38,7 +37,7 @@ function renderAuditReports(audits) {
     audits.forEach(audit => {
         const row = document.createElement('tr');
         const photosHtml = audit.photos && audit.photos.length > 0
-            ? audit.photos.map(photo => `<a href="/api/photo/${encodeURIComponent(photo)}" target="_blank"><img src="/api/photo/${encodeURIComponent(photo)}" alt="photo" style="width: 50px; height: 50px; object-fit: cover; border-radius: 5px; margin: 2px;"></a>`).join('')
+            ? audit.photos.map(photo => `<a href="${photo.data}" target="_blank"><img src="${photo.data}" alt="photo" style="width: 50px; height: 50px; object-fit: cover; border-radius: 5px; margin: 2px;"></a>`).join('')
             : 'No photos';
         row.innerHTML = `
             <td>${audit.schoolName || ''}</td>
@@ -65,38 +64,30 @@ function fetchAndRender(surveyName, tableBodyId, renderRowFunction) {
     const colSpan = tableBody.parentElement.querySelector('thead tr').childElementCount;
     tableBody.innerHTML = `<tr><td colspan="${colSpan}">Loading reports...</td></tr>`;
 
-    fetch(`/api/${surveyName}`)
-        .then(response => {
-            if (response.status === 404) { // Handle case where API endpoint doesn't exist
-                return []; // Treat as empty data
-            }
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            return response.json();
-        })
-        .then(data => {
-            if (!data || data.length === 0) {
-                tableBody.innerHTML = `<tr><td colspan="${colSpan}">No ${surveyName} reports found.</td></tr>`;
-                return;
-            }
-            tableBody.innerHTML = ''; // Clear loading message
-            data.forEach(item => {
-                const row = document.createElement('tr');
-                row.innerHTML = renderRowFunction(item);
-                tableBody.appendChild(row);
-            });
-        })
-        .catch(error => {
-            console.error(`Error fetching ${surveyName} reports:`, error);
-            tableBody.innerHTML = `<tr><td colspan="${colSpan}" style="color:red;">Could not load ${surveyName} reports.</td></tr>`;
+    try {
+        const storageKey = `${surveyName}Data`;
+        const saved = localStorage.getItem(storageKey);
+        const data = saved ? JSON.parse(saved) : [];
+
+        if (!data || data.length === 0) {
+            tableBody.innerHTML = `<tr><td colspan="${colSpan}">No ${surveyName.replace(/_/g, ' ')} reports found.</td></tr>`;
+            return;
+        }
+        tableBody.innerHTML = ''; // Clear loading message
+        data.forEach(item => {
+            const row = document.createElement('tr');
+            row.innerHTML = renderRowFunction(item);
+            tableBody.appendChild(row);
         });
+    } catch (error) {
+        console.error(`Error fetching ${surveyName} reports from localStorage:`, error);
+        tableBody.innerHTML = `<tr><td colspan="${colSpan}" style="color:red;">Could not load ${surveyName.replace(/_/g, ' ')} reports.</td></tr>`;
+    }
 }
 
 // --- Row render functions for each survey type ---
 
 function renderSilnatReportRow(item) {
-    // Extract data, providing defaults for missing fields
     const institutionName = item.section_b?.institution_name_common || 'N/A';
     const lgea = item.section_b?.local_gov_common || 'N/A';
     const type = item.institution_type?.replace(/_/g, ' ') || 'N/A';
@@ -110,6 +101,44 @@ function renderSilnatReportRow(item) {
         <td>${date}</td>
     `;
 }
+
+function renderSilat1_2ReportRow(item) {
+    const institutionName = item.section_b?.school_name || 'N/A';
+    const lgea = item.section_b?.local_gov_educ_auth || 'N/A';
+    const respondent = item.section_a?.head_teacher_name || 'N/A';
+    const date = item.timestamp ? new Date(item.timestamp).toLocaleString() : 'N/A';
+    return `
+        <td>${institutionName}</td>
+        <td>${lgea}</td>
+        <td>${respondent}</td>
+        <td>${date}</td>
+    `;
+}
+
+function renderSilat1_3ReportRow(item) {
+    const institutionName = item.section_b?.school_name || 'N/A';
+    const lgea = item.section_b?.lgea || 'N/A';
+    const respondent = item.section_a?.head_teacher_name || 'N/A';
+    const date = item.timestamp ? new Date(item.timestamp).toLocaleString() : 'N/A';
+    return `
+        <td>${institutionName}</td>
+        <td>${lgea}</td>
+        <td>${respondent}</td>
+        <td>${date}</td>
+    `;
+}
+
+function renderSilat1_4ReportRow(item) {
+    const lgea = item.section_b?.lgea_name || 'N/A';
+    const respondent = item.section_a?.education_secretary_name || 'Education Secretary';
+    const date = item.timestamp ? new Date(item.timestamp).toLocaleString() : 'N/A';
+    return `
+        <td>${lgea}</td>
+        <td>${respondent}</td>
+        <td>${date}</td>
+    `;
+}
+
 
 function renderTcmatsReportRow(item) {
     const teacherName = item.teacherName || 'N/A';
