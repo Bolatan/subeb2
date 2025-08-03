@@ -4985,10 +4985,10 @@ function editRecord(id) {
 }
     </script>
 
-    <footer style="background:var(--lagos-navy);color:var(--lagos-yellow);text-align:center;padding:18px 0 10px 0;margin-top:40px;border-top:4px solid var(--lagos-green);font-size:1rem;letter-spacing:0.5px;">
+    <footer style="background:var(--lagos-navy);color:var(--lagos-yellow);text-align:center;padding:18px 0 10px 0;margin-top:40px;border-top:4px solid var(--lagos-green);font-size:1rem;letter-spacing:0.5px; position: fixed; bottom: 0; right: 0; width: 100%; z-index: 1000;">
   <img src="subeb.jpg" alt="Lagos State Logo" style="height:32px;width:32px;vertical-align:middle;margin-right:10px;border-radius:6px;border:2px solid var(--lagos-yellow);background:var(--lagos-white);">
   Lagos State Universal Basic Education Board © 2025. All Rights Reserved. | Centre of Excellence
-  <div style="margin-top: 10px;">
+  <div style="position: absolute; bottom: 10px; right: 10px;">
     <button id="footerToggleOfflineBtn" class="btn" style="width:auto;padding:8px 16px;" onclick="toggleOfflineMode()">Go Offline</button>
     <span id="footerStatusIndicator" style="margin-left: 15px; font-weight: bold;"></span>
   </div>
