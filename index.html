@@ -602,6 +602,7 @@ select.form-control option {
             <div class="landing-header">
                 <img src="subeb.jpg" alt="LASUBEB Logo" class="landing-logo">
                 <h1 style="color:white;font-size:2.2rem; margin-left: 20px; flex-grow: 1; text-align: center;">Welcome to LASUBEB/PIMU Needs Assessment Portal</h1>
+				<button class="btn btn-secondary" style="width:auto;padding:8px 16px;margin-left:20px;" onclick="logout()">Sign Out</button>
             </div>
             <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:32px;max-width:1000px;margin:0 auto; margin-top: 32px;">
                 <div class="survey-card" onclick="showSurvey(&#39;silnat&#39;)">
@@ -3909,9 +3910,15 @@ function logout() {
     
     document.getElementById('authScreen').classList.remove('hidden');
     document.getElementById('mainApp').classList.add('hidden');
+    document.getElementById('landingPage').classList.add('hidden');
+    ['silnat','tcmats','lori','voices', 'silat_1.2', 'silat_1.3', 'silat_1.4'].forEach(s => {
+        const section = document.getElementById(s + 'Section');
+        if (section) {
+            section.classList.add('hidden');
+        }
+    });
     document.getElementById('username').value = '';
     document.getElementById('password').value = '';
-
 }
 
         // Navigation
