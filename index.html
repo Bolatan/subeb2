@@ -79,6 +79,57 @@
             box-shadow: 0 0 10px rgba(220, 38, 38, 0.5);
         }
 
+        /* Toggle Switch CSS */
+        .toggle-switch-container {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-left: 15px;
+        }
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 44px;
+            height: 24px;
+        }
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+        }
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: .4s;
+        }
+        input:checked + .slider {
+            background-color: var(--lagos-red);
+        }
+        input:checked + .slider:before {
+            transform: translateX(20px);
+        }
+        .slider.round {
+            border-radius: 24px;
+        }
+        .slider.round:before {
+            border-radius: 50%;
+        }
+
        .auth-container {
             background: var(--lagos-white);
             border-radius: 20px;
@@ -3430,6 +3481,13 @@ select.form-control option {
                 <div class="status">
                     <div id="connectionStatus" class="status-dot"></div>
                     <span id="connectionText">Online</span>
+                    <div class="toggle-switch-container">
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="forceOfflineSwitch" onchange="toggleForceOffline()">
+                            <span class="slider round"></span>
+                        </label>
+                        <span style="font-size: 14px; font-weight: 500;">Force Offline</span>
+                    </div>
                     <button class="btn btn-secondary" style="width:auto;padding:8px 16px;margin-left:20px;" onclick="logout()">Logout</button>
                 </div>
             </div>
@@ -3826,9 +3884,21 @@ let lagosStateData = {};
         let auditData = [];
         let uploadedFiles = [];
         let isOnline = navigator.onLine;
+        let forceOffline = false;
         
         // Replace the existing window.onload function
 window.onload = function() {
+    try {
+        forceOffline = JSON.parse(localStorage.getItem('auditAppForceOffline')) || false;
+        const forceOfflineSwitch = document.getElementById('forceOfflineSwitch');
+        if (forceOfflineSwitch) {
+            forceOfflineSwitch.checked = forceOffline;
+        }
+    } catch (e) {
+        forceOffline = false;
+        console.error('Error loading forceOffline state:', e);
+    }
+
     console.log('App initialized');
     loadSession();
     if (currentUser) {
@@ -3849,6 +3919,17 @@ window.onload = function() {
 
 
 // Add this new function to load saved session
+function toggleForceOffline() {
+    const isChecked = document.getElementById('forceOfflineSwitch').checked;
+    forceOffline = isChecked;
+    try {
+        localStorage.setItem('auditAppForceOffline', JSON.stringify(forceOffline));
+    } catch (e) {
+        console.error('Error saving forceOffline state:', e);
+    }
+    updateConnectionStatus();
+}
+
 function loadSession() {
     try {
         const savedUser = localStorage.getItem('auditAppCurrentUser');
@@ -4718,6 +4799,18 @@ function editRecord(id) {
 
 // --- PATCH: Sync Now button logic ---
 async function syncData() {
+    if (!isEffectivelyOnline()) {
+        alert('Cannot sync. Application is offline.');
+        const log = document.getElementById('syncLog');
+        if (log) {
+            const msg = document.createElement('div');
+            msg.style.margin = '10px 0';
+            msg.style.color = 'var(--lagos-red)';
+            msg.textContent = `Sync failed: Application is offline.`;
+            log.prepend(msg);
+        }
+        return;
+    }
     // Find all unsynced audits
     const unsynced = auditData.filter(a => !a.synced);
     if (unsynced.length === 0) {
@@ -4756,11 +4849,16 @@ async function syncData() {
 }
 
 // Connection status function
+function isEffectivelyOnline() {
+    return navigator.onLine && !forceOffline;
+}
+
 function updateConnectionStatus() {
     const statusDot = document.getElementById('connectionStatus');
     const statusText = document.getElementById('connectionText');
-    
-    if (navigator.onLine) {
+    const online = isEffectivelyOnline();
+
+    if (online) {
         if (statusDot) {
             statusDot.className = 'status-dot';
         }
@@ -4772,7 +4870,11 @@ function updateConnectionStatus() {
             statusDot.className = 'status-dot offline';
         }
         if (statusText) {
-            statusText.textContent = 'Offline';
+            if (forceOffline) {
+                statusText.textContent = 'Offline (Forced)';
+            } else {
+                statusText.textContent = 'Offline';
+            }
         }
     }
 }
