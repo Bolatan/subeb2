@@ -3498,6 +3498,13 @@ select.form-control option {
                 <div class="status">
                     <div id="connectionStatus" class="status-dot"></div>
                     <span id="connectionText">Online</span>
+                    <div class="toggle-switch-container">
+                        <label class="toggle-switch">
+                          <input type="checkbox" id="forceOfflineSwitch" onchange="toggleForceOffline()">
+                          <span class="slider round"></span>
+                        </label>
+                        <span style="font-size: 14px;">Force Offline</span>
+                    </div>
                     <button class="btn btn-secondary" style="width:auto;padding:8px 16px;margin-left:20px;" onclick="logout()">Logout</button>
                 </div>
             </div>
@@ -3929,7 +3936,6 @@ window.onload = function() {
         updateDashboard();
         loadRecords();
         updateConnectionStatus();
-        updateOfflineStatusDisplay();
     } else {
         document.getElementById('authScreen').classList.remove('hidden');
         document.getElementById('mainApp').classList.add('hidden');
@@ -3948,42 +3954,7 @@ function toggleForceOffline() {
         console.error('Error saving forceOffline state:', e);
     }
     updateConnectionStatus();
-}
-
-function toggleOfflineMode() {
-    forceOffline = !forceOffline;
-    localStorage.setItem('auditAppForceOffline', JSON.stringify(forceOffline));
-    updateConnectionStatus();
-    updateOfflineStatusDisplay();
-    alert(`Application is now in ${forceOffline ? 'OFFLINE' : 'ONLINE'} mode.`);
-}
-
-function updateOfflineStatusDisplay() {
-    const footerBtn = document.getElementById('footerToggleOfflineBtn');
-    const footerIndicator = document.getElementById('footerStatusIndicator');
-    const landingIndicator = document.getElementById('landingStatusIndicator');
-
-    if (forceOffline) { // Offline mode
-        if (footerBtn) footerBtn.textContent = 'Go Online';
-        if (footerIndicator) {
-            footerIndicator.textContent = 'Status: Offline';
-            footerIndicator.style.color = 'var(--lagos-red)';
-        }
-        if (landingIndicator) {
-            landingIndicator.textContent = '(Offline)';
-            landingIndicator.style.color = 'var(--lagos-red)';
-        }
-    } else { // Online mode
-        if (footerBtn) footerBtn.textContent = 'Go Offline';
-        if (footerIndicator) {
-            footerIndicator.textContent = 'Status: Online';
-            footerIndicator.style.color = 'var(--lagos-green)';
-        }
-        if (landingIndicator) {
-            landingIndicator.textContent = '(Online)';
-            landingIndicator.style.color = 'var(--lagos-yellow)';
-        }
-    }
+    alert(`Application is now in ${forceOffline ? 'FORCED OFFLINE' : 'ONLINE'} mode.`);
 }
 
 function loadSession() {
@@ -4937,31 +4908,24 @@ function updateConnectionStatus() {
     const statusDot = document.getElementById('connectionStatus');
     const statusText = document.getElementById('connectionText');
     const offlineBanner = document.getElementById('offlineBanner');
+    const landingIndicator = document.getElementById('landingStatusIndicator');
     const online = isEffectivelyOnline();
 
     if (online) {
-        if (statusDot) {
-            statusDot.className = 'status-dot';
-        }
-        if (statusText) {
-            statusText.textContent = 'Online';
-        }
-        if (offlineBanner) {
-            offlineBanner.style.display = 'none';
+        if (statusDot) statusDot.className = 'status-dot';
+        if (statusText) statusText.textContent = 'Online';
+        if (offlineBanner) offlineBanner.style.display = 'none';
+        if (landingIndicator) {
+            landingIndicator.textContent = '(Online)';
+            landingIndicator.style.color = 'var(--lagos-yellow)';
         }
     } else {
-        if (statusDot) {
-            statusDot.className = 'status-dot offline';
-        }
-        if (statusText) {
-            if (forceOffline) {
-                statusText.textContent = 'Offline (Forced)';
-            } else {
-                statusText.textContent = 'Offline';
-            }
-        }
-        if (offlineBanner) {
-            offlineBanner.style.display = 'block';
+        if (statusDot) statusDot.className = 'status-dot offline';
+        if (statusText) statusText.textContent = forceOffline ? 'Offline (Forced)' : 'Offline';
+        if (offlineBanner) offlineBanner.style.display = 'block';
+        if (landingIndicator) {
+            landingIndicator.textContent = '(Offline)';
+            landingIndicator.style.color = 'var(--lagos-red)';
         }
     }
 }
@@ -5017,10 +4981,6 @@ function editRecord(id) {
     <footer style="background:var(--lagos-navy);color:var(--lagos-yellow);text-align:center;padding:18px 0 10px 0;margin-top:40px;border-top:4px solid var(--lagos-green);font-size:1rem;letter-spacing:0.5px; position: fixed; bottom: 0; right: 0; width: 100%; z-index: 1000;">
   <img src="subeb.jpg" alt="Lagos State Logo" style="height:32px;width:32px;vertical-align:middle;margin-right:10px;border-radius:6px;border:2px solid var(--lagos-yellow);background:var(--lagos-white);">
   Lagos State Universal Basic Education Board © 2025. All Rights Reserved. | Centre of Excellence
-  <div style="position: absolute; bottom: 10px; right: 10px;">
-    <button id="footerToggleOfflineBtn" class="btn" style="width:auto;padding:8px 16px;" onclick="toggleOfflineMode()">Go Offline</button>
-    <span id="footerStatusIndicator" style="margin-left: 15px; font-weight: bold;"></span>
-  </div>
 </footer>
 
 <script>
